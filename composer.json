@@ -14,7 +14,6 @@
         }
     ],
     "autoload": {
-        "psr-0": { "Bkstg\\NoticeBoardBundle": "" }
-    },
-    "target-dir": "Bkstg/NoticeBoardBundle"
+        "psr-4": { "Bkstg\\NoticeBoardBundle": "" }
+    }
 }
