@@ -147,7 +147,7 @@ class BoardController extends Controller
             );
 
             $message_manager = $this->get('message.manager');
-            $message_manager->createMessage($user->__toString() . ' edited a post on the notice board', 'th-list', 'bkstg_board_home');
+            $message_manager->createMessage($user->__toString() . ' edited a post on the notice board', 'th-list', 'bkstg_board_home', null, 'BkstgNoticeBoardBundle:Post', $post);
 
             // redirect back to the board
             return $this->redirectToRoute('bkstg_board_home');
