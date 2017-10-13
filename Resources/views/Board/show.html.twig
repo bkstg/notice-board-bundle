@@ -1,1 +1,6 @@
-Hello World!
+{% extends '@BkstgCore/layout.html.twig' %}
+{% set page_title = production.name %}
+{% block content %}
+  {% media production.image, 'big' %}
+  {{ production.description|raw }}
+{% endblock %}
