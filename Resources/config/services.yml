@@ -1,0 +1,24 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+    Bkstg\NoticeBoardBundle\:
+        resource: '../../*'
+        exclude: '../../{Entity,Repository,Tests}'
+
+    # Controller services.
+    Bkstg\NoticeBoardBundle\Controller\:
+        resource: '../../Controller'
+        public: true
+        tags:
+            - { name: controller.service_arguments }
+
+    # Block services.
+    Bkstg\NoticeBoardBundle\Block\:
+        resource: '../../Block'
+        public: true
+        arguments:
+            - null
+        tags:
+            - { name: sonata.block }

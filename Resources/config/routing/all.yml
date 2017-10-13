@@ -1,0 +1,16 @@
+bkstg_board_show:
+    path: /
+    defaults:
+      _controller: Bkstg\NoticeBoardBundle\Controller\BoardController:showAction
+bkstg_post_create:
+    path: /create
+    defaults:
+        _controller: Bkstg\NoticeBoardBundle\Controller\PostController:createAction
+bkstg_post_edit:
+    path: /{id}/edit
+    defaults:
+        _controller: Bkstg\NoticeBoardBundle\Controller\PostController:updateAction
+bkstg_post_delete:
+    path: /{id}/delete
+    defaults:
+        _controller: Bkstg\NoticeBoardBundle\Controller\PostController:deleteAction
