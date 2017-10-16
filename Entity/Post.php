@@ -217,7 +217,7 @@ class Post implements GroupableInterface
     /**
      * Get groups
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getGroups()
     {
