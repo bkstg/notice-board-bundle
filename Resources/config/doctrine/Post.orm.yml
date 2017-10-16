@@ -1,0 +1,36 @@
+Bkstg\NoticeBoardBundle\Entity\Post:
+    type: entity
+    repositoryClass: Bkstg\NoticeBoardBundle\Repository\PostRepository
+
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+
+    fields:
+        body:
+            type: text
+            nullable: true
+        status:
+            type: smallint
+        expiry:
+            type: datetime
+            nullable: true
+        created:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+        updated:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: update
+        author:
+            type: string
+
+    manyToMany:
+        groups:
+            targetEntity: Bkstg\CoreBundle\Entity\Production
