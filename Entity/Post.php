@@ -12,6 +12,8 @@ use MidnightLuke\GroupSecurityBundle\Model\GroupableInterface;
  */
 class Post implements GroupableInterface
 {
+    const STATUS_ACTIVE = 1;
+    const STATUS_CLOSED = 0;
 
     private $id;
     private $body;
