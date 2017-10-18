@@ -13,6 +13,8 @@ Bkstg\NoticeBoardBundle\Entity\Post:
         body:
             type: text
             nullable: true
+        pinned:
+            type: boolean
         status:
             type: smallint
         expiry:

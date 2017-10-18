@@ -2,6 +2,7 @@
 
 namespace Bkstg\NoticeBoardBundle\Block;
 
+use Bkstg\CoreBundle\Context\ContextProviderInterface;
 use Bkstg\NoticeBoardBundle\Entity\Post;
 use Bkstg\NoticeBoardBundle\Form\PostType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,17 +22,20 @@ class PostFormBlock extends AbstractAdminBlockService
     protected $em;
     protected $token_storage;
     protected $form;
+    protected $context;
 
     public function __construct(
         $name,
         EngineInterface $templating,
         EntityManagerInterface $em,
         TokenStorageInterface $token_storage,
-        FormFactoryInterface $form
+        FormFactoryInterface $form,
+        ContextProviderInterface $context
     ) {
         $this->token_storage = $token_storage;
         $this->em = $em;
         $this->form = $form;
+        $this->context = $context;
         parent::__construct($name, $templating);
     }
 
@@ -40,11 +44,25 @@ class PostFormBlock extends AbstractAdminBlockService
      */
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
-        $form = $this->form->create(PostType::class, new Post());
+        $group = $this->context->getContext();
+
+        // If not post is passed in create one.
+        if (null === $post = $blockContext->getSetting('post')) {
+            $post = new Post();
+            $post->setStatus(Post::STATUS_ACTIVE);
+            $post->setAuthor($this->token_storage->getToken()->getUser()->getUsername());
+            $post->addGroup($group);
+            $blockContext->setSetting('post', $post);
+        }
+
+        // We don't need status or expiry on the block form.
+        $form = $this->form
+            ->create(PostType::class, new Post());
 
         return $this->renderResponse($blockContext->getTemplate(), [
             'block' => $blockContext->getBlock(),
             'settings' => $blockContext->getSettings(),
+            'production' => $group,
             'form' => $form->createView(),
         ], $response);
     }
@@ -55,7 +73,7 @@ class PostFormBlock extends AbstractAdminBlockService
     public function configureSettings(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'content' => 'Insert your custom content here',
+            'post' => null,
             'template' => '@BkstgNoticeBoard/Block/post-form.html.twig',
         ));
     }

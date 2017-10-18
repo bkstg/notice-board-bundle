@@ -17,6 +17,7 @@ class Post implements GroupableInterface
 
     private $id;
     private $body;
+    private $pinned;
     private $status;
     private $expiry;
     private $created;
@@ -97,7 +98,7 @@ class Post implements GroupableInterface
      *
      * @return Post
      */
-    public function setExpiry(\DateTime $expiry)
+    public function setExpiry(\DateTime $expiry = null)
     {
         $this->expiry = $expiry;
 
@@ -237,5 +238,29 @@ class Post implements GroupableInterface
             }
         }
         return false;
+    }
+
+    /**
+     * Set pinned
+     *
+     * @param boolean $pinned
+     *
+     * @return Post
+     */
+    public function setPinned($pinned)
+    {
+        $this->pinned = $pinned;
+
+        return $this;
+    }
+
+    /**
+     * Get pinned
+     *
+     * @return boolean
+     */
+    public function getPinned()
+    {
+        return $this->pinned;
     }
 }

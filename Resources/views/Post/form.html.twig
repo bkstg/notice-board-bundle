@@ -1,0 +1,24 @@
+{% if post.id is defined and post.id is not empty %}
+  {% set action = url('bkstg_post_update', {'production_slug': production.slug}) %}
+{% else %}
+  {% set action = url('bkstg_post_create', {'production_slug': production.slug}) %}
+{% endif %}
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+{{ form_start(form, {'action': action }) }}
+  {{ form_row(form.body) }}
+
+  {# Editor-only items #}
+  {% if is_granted('GROUP_ROLE_EDITOR', production) %}
+    <p><a class="btn btn-secondary" data-toggle="collapse" href="#post-admin-options" aria-expanded="false" aria-controls="post-admin-options">
+      {{ 'Admin options'|trans }}
+    </a></p>
+    <div class="collapse" id="post-admin-options">
+      <div class="card card-body">
+        {{ form_widget(form) }}
+      </div>
+    </div>
+  {% endif %}
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary">{{ 'Submit'|trans }}</button>
+  </div>
+{{ form_end(form) }}
