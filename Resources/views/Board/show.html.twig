@@ -9,4 +9,8 @@
   <div class="collapse" id="collapseExample">
     {{ sonata_block_render({ 'type': 'Bkstg\\NoticeBoardBundle\\Block\\PostFormBlock' }) }}
   </div>
+
+  {% for post in posts %}
+    {% include '@BkstgNoticeBoard/Post/show.html.twig' with { 'post': post } only %}
+  {% endfor %}
 {% endblock %}

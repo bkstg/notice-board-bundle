@@ -4,6 +4,7 @@ namespace Bkstg\NoticeBoardBundle\Controller;
 
 use Bkstg\CoreBundle\Controller\Controller;
 use Bkstg\CoreBundle\Entity\Production;
+use Bkstg\NoticeBoardBundle\Entity\Post;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -26,9 +27,13 @@ class BoardController extends Controller
             throw new AccessDeniedException();
         }
 
+        // Get notice board posts.
+        $posts = $this->em->getRepository(Post::class)->findAllActive($production);
+
         // Return response.
         return new Response($this->templating->render('@BkstgNoticeBoard/Board/show.html.twig', [
             'production' => $production,
+            'posts' => $posts,
         ]));
     }
 }
