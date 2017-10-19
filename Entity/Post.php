@@ -24,6 +24,8 @@ class Post implements GroupableInterface
     private $updated;
     private $author;
     private $groups;
+    private $parent;
+    private $children;
 
     /**
      * Constructor
@@ -262,5 +264,63 @@ class Post implements GroupableInterface
     public function getPinned()
     {
         return $this->pinned;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param Post $parent
+     *
+     * @return Post
+     */
+    public function setParent(Post $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return Post
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * Add child
+     *
+     * @param Post $child
+     *
+     * @return Post
+     */
+    public function addChild(Post $child)
+    {
+        $this->children[] = $child;
+
+        return $this;
+    }
+
+    /**
+     * Remove child
+     *
+     * @param Post $child
+     */
+    public function removeChild(Post $child)
+    {
+        $this->children->removeElement($child);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getChildren()
+    {
+        return $this->children;
     }
 }

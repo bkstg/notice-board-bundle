@@ -55,9 +55,8 @@ class PostFormBlock extends AbstractAdminBlockService
             $blockContext->setSetting('post', $post);
         }
 
-        // We don't need status or expiry on the block form.
-        $form = $this->form
-            ->create(PostType::class, $post);
+        // Create a post form.
+        $form = $this->form->create(PostType::class, $post);
 
         return $this->renderResponse($blockContext->getTemplate(), [
             'block' => $blockContext->getBlock(),

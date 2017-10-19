@@ -36,3 +36,11 @@ Bkstg\NoticeBoardBundle\Entity\Post:
     manyToMany:
         groups:
             targetEntity: Bkstg\CoreBundle\Entity\Production
+    manyToOne:
+        parent:
+            targetEntity: Bkstg\NoticeBoardBundle\Entity\Post
+            inversedBy: children
+    oneToMany:
+        children:
+          targetEntity: Bkstg\NoticeBoardBundle\Entity\Post
+          mappedBy: parent
