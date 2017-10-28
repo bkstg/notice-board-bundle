@@ -1,11 +1,12 @@
+{% set profile = profile(post.author) %}
 <div class="container-fluid">
   <div class="row">
     <div class="col-1">
-      <img class="img-fluid rounded-circle" src="http://dummyimage.com/300x300/4d494d/686a82.gif&text=placeholder+image" alt="placeholder+image">
+      {% media profile.image, 'small' with {'class': 'img-fluid rounded-circle'} %}
     </div>
     <div class="col-11">
       {{ post.body|raw }}
-      <p><small>{{ 'Posted %date%'|trans({'%date%': post.created|time_diff}) }}</small></p>
+      <p><small>{{ 'Posted %date% by %author%'|trans({'%date%': post.created|time_diff, '%author%': profile.name}) }}</small></p>
       {% if post.children is not empty %}
         {% for child in post.children %}
           {% include '@BkstgNoticeBoard/Post/show.html.twig' with { 'post':child } only %}

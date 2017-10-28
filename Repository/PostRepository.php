@@ -22,6 +22,7 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
             // Add conditions.
             ->andWhere($qb->expr()->eq('g', ':group'))
             ->andWhere($qb->expr()->eq('p.status', ':status'))
+            ->andWhere($qb->expr()->isNull('p.parent'))
             ->andWhere($qb->expr()->orX(
                 $qb->expr()->isNull('p.expiry'),
                 $qb->expr()->gt('p.expiry', ':now')

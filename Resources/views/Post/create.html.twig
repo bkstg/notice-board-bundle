@@ -1,0 +1,16 @@
+{% extends '@BkstgCore/layout.html.twig' %}
+{% set page_title = 'Create new post' %}
+{% block content %}
+  <p>
+    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+      <i class="fa fa-plus"></i> {{ 'Create new post'|trans }}
+    </a>
+  </p>
+  <div class="collapse" id="collapseExample">
+    {{ sonata_block_render({ 'type': 'Bkstg\\NoticeBoardBundle\\Block\\PostFormBlock' }) }}
+  </div>
+
+  {% for post in posts %}
+    {% include '@BkstgNoticeBoard/Post/show.html.twig' with { 'post': post } only %}
+  {% endfor %}
+{% endblock %}
