@@ -37,6 +37,7 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
             ->orderBy('p.pinned', 'DESC')
             ->addOrderBy('p.created', 'DESC')
             ->getQuery()
+            ->setCacheable(true)
             ->getResult();
     }
 }
