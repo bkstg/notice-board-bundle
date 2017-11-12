@@ -2,7 +2,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-1">
-      {% media profile.image, 'small' with {'class': 'img-fluid rounded-circle'} %}
+      {% media profile.image, 'square' with {'class': 'img-fluid rounded-circle'} %}
     </div>
     <div class="col-11">
       {{ post.body|raw }}
