@@ -2,11 +2,13 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-1">
-      {% media profile.image, 'square' with {'class': 'img-fluid rounded-circle'} %}
+      {% if profile %}
+        {% media profile.image, 'square' with {'class': 'img-fluid rounded-circle'} %}
+      {% endif %}
     </div>
     <div class="col-11">
       {{ post.body|raw }}
-      <p><small>{{ 'Posted %date% by %author%'|trans({'%date%': post.created|time_diff, '%author%': profile.name}) }}</small></p>
+      <p><small>{{ 'Posted %date% by %author%'|trans({'%date%': post.created|time_diff, '%author%': profile ? profile.name : post.author}) }}</small></p>
       {% if post.children is not empty %}
         {% for child in post.children %}
           {% include '@BkstgNoticeBoard/Post/show.html.twig' with { 'post':child } only %}

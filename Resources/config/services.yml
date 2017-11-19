@@ -23,8 +23,7 @@ services:
         tags:
             - { name: sonata.block }
 
-    Bkstg\NoticeBoardBundle\EventSubscriber\PostSubscriber:
-        arguments:
-            - '@sonata.notification.backend'
+    # Doctrine event listeners.
+    Bkstg\NoticeBoardBundle\EventListener\PostCreator:
         tags:
-            - { name: doctrine.event_subscriber, connection: default }
+            - { name: doctrine.event_listener, event: postPersist, lazy: true }
