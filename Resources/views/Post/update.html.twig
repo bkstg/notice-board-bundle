@@ -1,13 +1,8 @@
 {% extends '@BkstgCore/layout.html.twig' %}
-{% if post.parent is not empty %}
-  {% set page_title = 'Reply to post' %}
-{% else %}
-  {% set page_title = 'Create new post' %}
-{% endif %}
+{% set page_title = 'Edit post' %}
 {% block content %}
   {% if post.parent is not empty %}
     {% include '@BkstgNoticeBoard/Post/show.html.twig' with { 'post': post.parent, 'production': production, 'show_actions': false } only %}
   {% endif %}
-
   {% include '@BkstgNoticeBoard/Post/form.html.twig' %}
 {% endblock %}

@@ -1,24 +1,31 @@
-{% if post.id is defined and post.id is not empty %}
-  {% set action = url('bkstg_post_edit', {'production_slug': production.slug, 'id': post.id}) %}
-{% else %}
-  {% set action = url('bkstg_post_create', {'production_slug': production.slug}) %}
-{% endif %}
 {% form_theme form 'bootstrap_3_layout.html.twig' %}
-{{ form_start(form, {'action': action }) }}
-  {{ form_widget(form.body, { 'id': 'bkstg_post_create_' ~ post.id }) }}
+{{ form_start(form) }}
 
-  {# Editor-only items #}
-  {% if is_granted('GROUP_ROLE_EDITOR', production) %}
-    <p><a class="btn btn-secondary" data-toggle="collapse" href="#post-admin-options-{{ post.id is defined ? post.id : 'create' }}" aria-expanded="false" aria-controls="post-admin-options-{{ post.id is defined ? post.id : 'create' }}">
-      {{ 'Admin options'|trans }}
-    </a></p>
-    <div class="collapse" id="post-admin-options-{{ post.id is defined ? post.id : 'create' }}">
-      <div class="card card-body">
+  {# Editors have access to admin panel #}
+  {% if is_granted('GROUP_ROLE_EDITOR', production) and post.parent is null %}
+    <p><ul class="nav nav-tabs" id="post-tabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="content-tab" data-toggle="tab" href="#content" role="tab" aria-controls="content" aria-selected="true">{{ 'Post'|trans }}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="admin-tab" data-toggle="tab" href="#admin" role="tab" aria-controls="admin" aria-selected="false">{{ 'Admin options'|trans }}</a>
+      </li>
+    </ul></p>
+    <div class="tab-content" id="post-tab-content">
+      <div class="tab-pane show active" id="content" role="tabpanel" aria-labelledby="content-tab">
+  {% endif %}
+
+  {{ form_widget(form.body) }}
+
+  {# Finish editor admin panel #}
+  {% if is_granted('GROUP_ROLE_EDITOR', production) and post.parent is null %}
+      </div>
+      <div class="tab-pane fade" id="admin" role="tabpanel" aria-labelledby="admin-tab">
         {{ form_widget(form) }}
       </div>
     </div>
   {% endif %}
-  <div class="form-group">
+  <p><div class="form-group">
     <button type="submit" class="btn btn-primary">{{ 'Submit'|trans }}</button>
-  </div>
+  </div></p>
 {{ form_end(form) }}

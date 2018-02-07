@@ -15,6 +15,12 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
 {
     public function findAllActive(Production $production)
     {
+        return $this->getAllActiveQuery()->getResult();
+    }
+
+
+    public function getAllActiveQuery(Production $production)
+    {
         $qb = $this->createQueryBuilder('p');
         return $qb
             ->join('p.groups', 'g')
@@ -36,8 +42,6 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
             // Order by and get results.
             ->orderBy('p.pinned', 'DESC')
             ->addOrderBy('p.created', 'DESC')
-            ->getQuery()
-            ->setCacheable(true)
-            ->getResult();
+            ->getQuery();
     }
 }

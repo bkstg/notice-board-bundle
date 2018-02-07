@@ -323,4 +323,9 @@ class Post implements GroupableInterface
     {
         return $this->children;
     }
+
+    public function __toString()
+    {
+        return $this->body;
+    }
 }

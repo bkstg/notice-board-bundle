@@ -1,8 +1,6 @@
 Bkstg\NoticeBoardBundle\Entity\Post:
     type: entity
     repositoryClass: Bkstg\NoticeBoardBundle\Repository\PostRepository
-    cache:
-        usage: NONSTRICT_READ_WRITE
 
     id:
         id:
