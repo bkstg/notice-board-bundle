@@ -1,20 +1,31 @@
+{# We need the user for this. #}
 {% set user = get_user(post.author) %}
+
+{# Setup the default classes for this post. #}
 {% set classes = ['post', 'container-fluid'] %}
+
+{# This is a child, add the child class. #}
 {% if post.parent is not null %}
   {% set classes = classes|merge(['child']) %}
 {% endif %}
+
+{# This is a pinned post, add a pinned class. #}
 {% if post.pinned %}
   {% set classes = classes|merge(['pinned']) %}
 {% endif %}
+
 <div id="post-{{ post.id }}" class="{{ classes|join(' ') }}">
   <div class="row">
     <div class="col-1">
+      {# Include the profile image for this user. #}
       {% include '@BkstgCore/Partials/profile-picture.html.twig' with { 'user': user } only %}
     </div>
     <div class="col-11">
+      {# Indicate the pinned status for screen readers. #}
       {% if post.pinned %}
         <p class="sr-only"><small>{{ 'Post is pinned'|trans }}</small></p>
       {% endif %}
+
       <div class="post-body">
         {{ post.body|raw }}
       </div>
@@ -26,6 +37,8 @@
           {% endif %}
         </em></p>
       </div>
+
+      {# Show the actions for this post by default. #}
       {% if (show_actions is not defined) or (show_actions == true) %}
         <div class="post-actions">
           <div class="btn-group" role="group" aria-label="Actions">
@@ -38,6 +51,8 @@
           </div>
         </div>
       {% endif %}
+
+      {# Render the children for this post recursively. #}
       {% if post.children is not empty %}
         <div class="children">
         {% for child in post.children %}
