@@ -15,14 +15,19 @@
       {% if post.pinned %}
         <p class="sr-only"><small>{{ 'Post is pinned'|trans }}</small></p>
       {% endif %}
-      <div class="post-body clearfix">
+      <div class="post-body">
         {{ post.body|raw }}
       </div>
-      <div class="post-details clearfix">
-        <p>{{ 'Posted %date% by %author%'|trans({'%date%': post.created|time_diff, '%author%': user }) }}</p>
+      <div class="post-details">
+        <p class="text-muted"><em>
+          {{ 'Posted %date% by %author%'|trans({'%date%': post.created|time_diff, '%author%': user }) }}
+          {% if post.updated > post.created %}
+            <small class="text-info">{{ '(edited)'|trans }}</small>
+          {% endif %}
+        </em></p>
       </div>
       {% if (show_actions is not defined) or (show_actions == true) %}
-        <div class="post-actions clearfix">
+        <div class="post-actions">
           <div class="btn-group" role="group" aria-label="Actions">
             {% if post.parent == null %}
               <a href="{{ url('bkstg_post_create', {'production_slug': production.slug}) }}?reply-to={{ post.id }}" class="btn btn-outline-info"><i class="fa fa-commenting"></i> {{ 'Reply'|trans }}</a>
