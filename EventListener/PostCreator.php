@@ -34,10 +34,21 @@ class PostCreator
 
         $user = $this->user_provider->loadUserByUsername($post->getAuthor());
 
+        // Create components for this action.
         $user_component = $this->action_manager->findOrCreateComponent($user);
+        $post_component = $this->action_manager->findOrCreateComponent($post);
+
         foreach ($post->getGroups() as $group) {
             $group_component = $this->action_manager->findOrCreateComponent($group);
-            $action = $this->action_manager->create($user_component, 'post', array('directComplement' => $group_component));
+
+            $action = $this->action_manager->create(
+                $user_component,
+                'post',
+                [
+                    'directComplement' => $post_component,
+                    'indirectComplement' => $group_component,
+                ]
+            );
             $action->setLink($this->url_generator->generate(
                 'bkstg_board_show',
                 [
