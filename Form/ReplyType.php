@@ -19,6 +19,7 @@ class ReplyType extends AbstractType
             ->add('body', CKEditorType::class, [
                 'required' => false,
                 'config' => ['toolbar' => 'basic'],
+                'label' => 'post.form.body',
             ])
         ;
     }
@@ -29,6 +30,7 @@ class ReplyType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
+            'translation_domain' => 'BkstgNoticeBoardBundle',
             'data_class' => Post::class,
         ]);
     }

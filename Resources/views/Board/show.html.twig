@@ -1,9 +1,10 @@
+{% trans_default_domain 'BkstgNoticeBoardBundle' %}
 {% extends '@BkstgCore/layout.html.twig' %}
 {% set page_title = 'Notice Board' %}
 {% block content %}
   <p>
     <a class="btn btn-primary" href="{{ url('bkstg_post_create', {'production_slug': production.slug}) }}">
-      <i class="fa fa-plus"></i> {{ 'Create new post'|trans }}
+      <i class="fa fa-plus"></i> {{ 'post.create_new'|trans }}
     </a>
   </p>
 

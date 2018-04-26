@@ -1,3 +1,4 @@
+{% trans_default_domain 'BkstgNoticeBoardBundle' %}
 {# We need the user for this. #}
 {% set user = get_user(post.author) %}
 
@@ -23,7 +24,7 @@
     <div class="col-11">
       {# Indicate the pinned status for screen readers. #}
       {% if post.pinned %}
-        <p class="sr-only"><small>{{ 'Post is pinned'|trans }}</small></p>
+        <p class="sr-only"><small>{{ 'post.pinned'|trans }}</small></p>
       {% endif %}
 
       <div class="post-body">
@@ -31,9 +32,9 @@
       </div>
       <div class="post-details">
         <p class="text-muted"><em>
-          {{ 'Posted %date% by %author%'|trans({'%date%': post.created|time_diff, '%author%': user }) }}
+          {{ 'post.posted_by'|trans({'%date%': post.created|time_diff, '%author%': user }) }}
           {% if post.updated > post.created %}
-            <small class="text-info">{{ '(edited)'|trans }}</small>
+            <small class="text-info">{{ 'post.edited_flag'|trans }}</small>
           {% endif %}
         </em></p>
       </div>
@@ -43,10 +44,10 @@
         <div class="post-actions">
           <div class="btn-group" role="group" aria-label="Actions">
             {% if post.parent == null %}
-              <a href="{{ url('bkstg_post_create', {'production_slug': production.slug}) }}?reply-to={{ post.id }}" class="btn btn-outline-info"><i class="fa fa-commenting"></i> {{ 'Reply'|trans }}</a>
+              <a href="{{ url('bkstg_post_create', {'production_slug': production.slug}) }}?reply-to={{ post.id }}" class="btn btn-outline-info"><i class="fa fa-commenting"></i> {{ 'post.reply'|trans }}</a>
             {% endif %}
             {% if is_granted('edit', post) %}
-              <a href="{{ url('bkstg_post_edit', {'id': post.id, 'production_slug': production.slug}) }}" class="btn btn-outline-dark"><i class="fa fa-pencil"></i> {{ 'Edit'|trans }}</a>
+              <a href="{{ url('bkstg_post_edit', {'id': post.id, 'production_slug': production.slug}) }}" class="btn btn-outline-dark"><i class="fa fa-pencil"></i> {{ 'post.edit'|trans }}</a>
             {% endif %}
           </div>
         </div>

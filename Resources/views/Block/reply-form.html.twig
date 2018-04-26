@@ -1,3 +1,4 @@
+{% trans_default_domain 'BkstgNoticeBoardBundle' %}
 {% extends sonata_block.templates.block_base %}
 {% form_theme form 'bootstrap_3_layout.html.twig' %}
 {% block block %}
@@ -5,7 +6,7 @@
   {{ form_start(form, {'action': action }) }}
     {{ form_widget(form.body, { 'id': 'bkstg_post_reply_' ~ settings.parent.id }) }}
     <div class="form-group">
-      <button type="submit" class="btn btn-primary">{{ 'Submit'|trans }}</button>
+      <button type="submit" class="btn btn-primary">{{ 'post.form.submit'|trans }}</button>
     </div>
   {{ form_end(form) }}
 {% endblock %}

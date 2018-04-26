@@ -1,5 +1,6 @@
+{% trans_default_domain 'BkstgNoticeBoardBundle' %}
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="{{ url('bkstg_production_overview', {'production_slug': result.groups[0].slug}) }}">{{ result.groups[0].name }}</a></li>
-  <li class="breadcrumb-item"><a href="{{ url('bkstg_board_show', {'production_slug': result.groups[0].slug}) }}">{{ 'Notice Board'|trans }}</a></li>
+  <li class="breadcrumb-item"><a href="{{ url('bkstg_board_show', {'production_slug': result.groups[0].slug}) }}">{{ 'search_result.notice_board'|trans }}</a></li>
 </ol>
 {% include '@BkstgNoticeBoard/Post/show.html.twig' with { 'post': result, 'production': result.groups[0], 'show_actions': false } %}

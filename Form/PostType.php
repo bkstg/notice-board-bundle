@@ -35,6 +35,7 @@ class PostType extends AbstractType
             ->add('body', CKEditorType::class, [
                 'required' => false,
                 'config' => ['toolbar' => 'basic'],
+                'label' => 'post.form.body',
             ])
         ;
 
@@ -42,15 +43,20 @@ class PostType extends AbstractType
             $builder
                 ->add('pinned', CheckboxType::class, [
                     'required' => false,
+                    'label' => 'post.form.pinned',
                 ])
                 ->add('status', ChoiceType::class, [
                     'choices' => [
                         'Active' => Post::STATUS_ACTIVE,
                         'Closed' => Post::STATUS_CLOSED,
                     ],
+                    'label' => 'post.form.status',
                 ])
                 ->add('expiry', DateTimeType::class, [
                     'required' => false,
+                    'time_widget' => 'single_text',
+                    'date_widget' => 'single_text',
+                    'label' => 'post.form.expiry',
                 ])
             ;
         }
@@ -61,9 +67,10 @@ class PostType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Bkstg\NoticeBoardBundle\Entity\Post'
-        ));
+        $resolver->setDefaults([
+            'translation_domain' => 'BkstgNoticeBoardBundle',
+            'data_class' => Post::class,
+        ]);
     }
 
     /**

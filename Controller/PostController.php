@@ -83,7 +83,7 @@ class PostController extends Controller
             // Set success message and redirect.
             $this->session->getFlashBag()->add(
                 'success',
-                $this->translator->trans('Post created.')
+                $this->translator->trans('post.created', [], 'BkstgNoticeBoardBundle')
             );
             return new RedirectResponse($this->url_generator->generate('bkstg_board_show', ['production_slug' => $production->getSlug()]));
         }
@@ -137,7 +137,7 @@ class PostController extends Controller
             $this->em->flush();
             $this->session->getFlashBag()->add(
                 'success',
-                $this->translator->trans('Post updated.')
+                $this->translator->trans('post.updated', [], 'BkstgNoticeBoardBundle')
             );
             return new RedirectResponse($this->url_generator->generate('bkstg_board_show', ['production_slug' => $production->getSlug()]));
         }

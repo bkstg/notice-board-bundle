@@ -1,3 +1,4 @@
+{% trans_default_domain 'BkstgNoticeBoardBundle' %}
 {% form_theme form 'bootstrap_3_layout.html.twig' %}
 {{ form_start(form) }}
 
@@ -5,10 +6,10 @@
   {% if is_granted('GROUP_ROLE_EDITOR', production) and post.parent is null %}
     <p><ul class="nav nav-tabs" id="post-tabs" role="tablist">
       <li class="nav-item">
-        <a class="nav-link active" id="content-tab" data-toggle="tab" href="#content" role="tab" aria-controls="content" aria-selected="true">{{ 'Post'|trans }}</a>
+        <a class="nav-link active" id="content-tab" data-toggle="tab" href="#content" role="tab" aria-controls="content" aria-selected="true">{{ 'post.form.post'|trans }}</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="admin-tab" data-toggle="tab" href="#admin" role="tab" aria-controls="admin" aria-selected="false">{{ 'Admin options'|trans }}</a>
+        <a class="nav-link" id="admin-tab" data-toggle="tab" href="#admin" role="tab" aria-controls="admin" aria-selected="false">{{ 'post.form.admin_options'|trans }}</a>
       </li>
     </ul></p>
     <div class="tab-content" id="post-tab-content">
@@ -21,11 +22,15 @@
   {% if is_granted('GROUP_ROLE_EDITOR', production) and post.parent is null %}
       </div>
       <div class="tab-pane fade" id="admin" role="tabpanel" aria-labelledby="admin-tab">
-        {{ form_widget(form) }}
+        <div class="form-row">
+          <div class="col-2">{{ form_row(form.status) }}</div>
+          <div class="col">{{ form_row(form.expiry) }}</div>
+        </div>
+        {{ form_row(form.pinned) }}
       </div>
     </div>
   {% endif %}
   <p><div class="form-group">
-    <button type="submit" class="btn btn-primary">{{ 'Submit'|trans }}</button>
+    <button type="submit" class="btn btn-primary">{{ 'post.form.submit'|trans }}</button>
   </div></p>
 {{ form_end(form) }}

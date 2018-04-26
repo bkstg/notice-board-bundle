@@ -9,6 +9,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class ProductionMenuSubscriber implements EventSubscriberInterface
 {
@@ -16,15 +17,18 @@ class ProductionMenuSubscriber implements EventSubscriberInterface
     private $factory;
     private $url_generator;
     private $auth;
+    private $translator;
 
     public function __construct(
         FactoryInterface $factory,
         UrlGeneratorInterface $url_generator,
-        AuthorizationCheckerInterface $auth
+        AuthorizationCheckerInterface $auth,
+        TranslatorInterface $translator
     ) {
         $this->factory = $factory;
         $this->url_generator = $url_generator;
         $this->auth = $auth;
+        $this->translator = $translator;
     }
 
     public static function getSubscribedEvents()
@@ -43,7 +47,8 @@ class ProductionMenuSubscriber implements EventSubscriberInterface
         $group = $event->getGroup();
 
         // Create overview menu item.
-        $overview = $this->factory->createItem('Notice Board', [
+        $overview = $this->factory->createItem(
+            $this->translator->trans('menu.notice_board', [], 'BkstgNoticeBoardBundle'), [
             'uri' => $this->url_generator->generate(
                 'bkstg_board_show',
                 ['production_slug' => $group->getSlug()]

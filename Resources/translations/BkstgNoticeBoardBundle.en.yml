@@ -1,0 +1,23 @@
+post:
+    reply: 'Reply'
+    edit: 'Edit'
+    posted_by: 'Posted %date% by %author%'
+    edited_flag: '(edited)'
+    pinned: 'Post is pinned'
+    create_new: 'Create new Post'
+    created: 'Post created.'
+    updated: 'Post updated.'
+    form:
+        body: 'Body'
+        post: 'Post'
+        pinned: 'Pinned'
+        status: 'Status'
+        expiry: 'Expiry'
+        admin_options: 'Admin options'
+        submit: 'Submit'
+timeline:
+    posted_in: 'posted in'
+search_result:
+    notice_board: 'Notice Board'
+menu:
+    notice_board: 'Notice Board'
