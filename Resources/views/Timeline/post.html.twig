@@ -1,5 +1,8 @@
-{% trans_default_domain 'BkstgNoticeBoardBundle' %}
-{% trans_default_domain 'BkstgNoticeBoardBundle' %}
-{{ timeline_component_render(timeline, 'subject') }}
-{{ 'timeline.posted_in'|trans }}
-{{ timeline_component_render(timeline, 'indirectComplement') }}
+{% embed '@BkstgNotification/Timeline/default.html.twig' %}
+  {% trans_default_domain 'BkstgNoticeBoardBundle' %}
+  {% block timeline_text %}
+    <strong>{{ timeline_component_render(timeline, 'subject') }}</strong>
+    {{ 'timeline.posted_in'|trans }}
+    {{ timeline_component_render(timeline, 'indirectComplement') }}
+  {% endblock %}
+{% endembed %}
