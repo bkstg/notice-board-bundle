@@ -2,7 +2,6 @@
 
 namespace Bkstg\NoticeBoardBundle\Controller;
 
-use Bkstg\CoreBundle\Context\ContextProviderInterface;
 use Bkstg\CoreBundle\Controller\Controller;
 use Bkstg\CoreBundle\Entity\Production;
 use Bkstg\NoticeBoardBundle\Entity\Post;

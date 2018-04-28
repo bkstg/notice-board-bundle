@@ -2,7 +2,7 @@
 
 namespace Bkstg\NoticeBoardBundle\Form;
 
-use Bkstg\CoreBundle\Context\ContextProviderInterface;
+use Bkstg\CoreBundle\Context\ProductionContextProviderInterface;
 use Bkstg\NoticeBoardBundle\Entity\Post;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
@@ -19,7 +19,7 @@ class PostType extends AbstractType
     private $auth;
 
     public function __construct(
-        ContextProviderInterface $context,
+        ProductionContextProviderInterface $context,
         AuthorizationCheckerInterface $auth
     ) {
         $this->context = $context;

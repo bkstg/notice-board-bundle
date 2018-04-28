@@ -2,7 +2,7 @@
 
 namespace Bkstg\NoticeBoardBundle\Block;
 
-use Bkstg\CoreBundle\Context\ContextProviderInterface;
+use Bkstg\CoreBundle\Context\ProductionContextProviderInterface;
 use Bkstg\NoticeBoardBundle\Entity\Post;
 use Bkstg\NoticeBoardBundle\Form\PostType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -30,7 +30,7 @@ class PostFormBlock extends AbstractAdminBlockService
         EntityManagerInterface $em,
         TokenStorageInterface $token_storage,
         FormFactoryInterface $form,
-        ContextProviderInterface $context
+        ProductionContextProviderInterface $context
     ) {
         $this->token_storage = $token_storage;
         $this->em = $em;
