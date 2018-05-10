@@ -23,6 +23,13 @@ services:
         tags:
             - { name: sonata.block }
 
+    # Spread services.
+    Bkstg\NoticeBoardBundle\Spread\:
+        resource: '../../Spread'
+        public: true
+        tags:
+            - { name: spy_timeline.spread }
+
     # Doctrine event listeners.
     Bkstg\NoticeBoardBundle\EventListener\PostCreator:
         tags:
