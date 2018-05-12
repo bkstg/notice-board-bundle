@@ -32,17 +32,18 @@ class PostCreator
             return;
         }
 
-        $user = $this->user_provider->loadUserByUsername($post->getAuthor());
+        // Get the author for the post.
+        $author = $this->user_provider->loadUserByUsername($post->getAuthor());
 
         // Create components for this action.
-        $user_component = $this->action_manager->findOrCreateComponent($user);
         $post_component = $this->action_manager->findOrCreateComponent($post);
+        $author_component = $this->action_manager->findOrCreateComponent($author);
 
         foreach ($post->getGroups() as $group) {
             $group_component = $this->action_manager->findOrCreateComponent($group);
 
             $action = $this->action_manager->create(
-                $user_component,
+                $author_component,
                 'post',
                 [
                     'directComplement' => $post_component,
