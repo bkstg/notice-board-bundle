@@ -1,6 +1,7 @@
 {% embed '@BkstgTimeline/Timeline/default.html.twig' %}
   {% trans_default_domain 'BkstgNoticeBoardBundle' %}
   {% block timeline_text %}
+    <big><i class="fa fa-comment-o"></i></big>
     <strong>{{ timeline_component_render(timeline, 'subject') }}</strong>
     {{ 'timeline.posted_in'|trans }}
     {{ timeline_component_render(timeline, 'indirectComplement') }}
