@@ -3,18 +3,15 @@
 namespace Bkstg\NoticeBoardBundle\Entity;
 
 use Bkstg\CoreBundle\Entity\Production;
+use Bkstg\SearchBundle\Model\SearchableInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use MidnightLuke\GroupSecurityBundle\Model\GroupInterface;
-use MidnightLuke\GroupSecurityBundle\Model\GroupableInterface;
 
 /**
  * Post
  */
-class Post implements GroupableInterface
+class Post implements SearchableInterface
 {
-    const STATUS_ACTIVE = 1;
-    const STATUS_CLOSED = 0;
-
     private $id;
     private $body;
     private $pinned;
