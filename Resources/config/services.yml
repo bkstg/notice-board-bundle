@@ -14,15 +14,6 @@ services:
         tags:
             - { name: controller.service_arguments }
 
-    # Block services.
-    Bkstg\NoticeBoardBundle\Block\:
-        resource: '../../Block'
-        public: true
-        arguments:
-            - null
-        tags:
-            - { name: sonata.block }
-
     # Spread services.
     Bkstg\NoticeBoardBundle\Spread\:
         resource: '../../Spread'
