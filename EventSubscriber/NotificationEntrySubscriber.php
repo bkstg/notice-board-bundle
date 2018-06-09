@@ -15,7 +15,7 @@ class NotificationEntrySubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         // return the subscribed events, their methods and priorities
-        return [NotificationEntryEvent::NAME => [['checkPostEntry', 0]]];
+        return ['bkstg.timeline.notification_entry' => [['checkPostEntry', 0]]];
     }
 
     /**

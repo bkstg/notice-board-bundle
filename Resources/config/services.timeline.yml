@@ -1,0 +1,12 @@
+services:
+    # Spread services.
+    Bkstg\NoticeBoardBundle\Spread\:
+        resource: '../../Spread'
+        public: true
+        tags:
+            - { name: spy_timeline.spread }
+
+    # Doctrine event listeners.
+    Bkstg\NoticeBoardBundle\EventListener\PostNotificationCreator:
+        tags:
+            - { name: doctrine.event_listener, event: postPersist, lazy: true }
