@@ -1,16 +1,16 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Bkstg\NoticeBoardBundle\Entity;
 
 use Bkstg\CoreBundle\Entity\Production;
-use Bkstg\CoreBundle\Model\SearchableInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use MidnightLuke\GroupSecurityBundle\Model\GroupInterface;
+use MidnightLuke\GroupSecurityBundle\Model\GroupableInterface;
 
 /**
  * Post
  */
-class Post implements SearchableInterface
+class Post implements GroupableInterface
 {
     private $id;
     private $body;
@@ -37,7 +37,7 @@ class Post implements SearchableInterface
      *
      * @return integer
      */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -49,7 +49,7 @@ class Post implements SearchableInterface
      *
      * @return Post
      */
-    public function setBody(string $body)
+    public function setBody(string $body): self
     {
         $this->body = $body;
 
@@ -61,7 +61,7 @@ class Post implements SearchableInterface
      *
      * @return string
      */
-    public function getBody()
+    public function getBody(): ?string
     {
         return $this->body;
     }
@@ -73,7 +73,7 @@ class Post implements SearchableInterface
      *
      * @return Post
      */
-    public function setStatus(int $status)
+    public function setStatus(bool $status): self
     {
         $this->status = $status;
 
@@ -85,7 +85,7 @@ class Post implements SearchableInterface
      *
      * @return integer
      */
-    public function getStatus()
+    public function getStatus(): ?bool
     {
         return $this->status;
     }
@@ -97,7 +97,7 @@ class Post implements SearchableInterface
      *
      * @return Post
      */
-    public function setExpiry(\DateTime $expiry = null)
+    public function setExpiry(?\DateTimeInterface $expiry): self
     {
         $this->expiry = $expiry;
 
@@ -109,7 +109,7 @@ class Post implements SearchableInterface
      *
      * @return \DateTime
      */
-    public function getExpiry()
+    public function getExpiry(): ?\DateTimeInterface
     {
         return $this->expiry;
     }
@@ -121,7 +121,7 @@ class Post implements SearchableInterface
      *
      * @return Post
      */
-    public function setCreated(\DateTime $created)
+    public function setCreated(\DateTimeInterface $created): self
     {
         $this->created = $created;
 
@@ -133,7 +133,7 @@ class Post implements SearchableInterface
      *
      * @return \DateTime
      */
-    public function getCreated()
+    public function getCreated(): ?\DateTimeInterface
     {
         return $this->created;
     }
@@ -145,7 +145,7 @@ class Post implements SearchableInterface
      *
      * @return Post
      */
-    public function setUpdated(\DateTime $updated)
+    public function setUpdated(\DateTimeInterface $updated): self
     {
         $this->updated = $updated;
 
@@ -157,7 +157,7 @@ class Post implements SearchableInterface
      *
      * @return \DateTime
      */
-    public function getUpdated()
+    public function getUpdated(): ?\DateTimeInterface
     {
         return $this->updated;
     }
@@ -169,7 +169,7 @@ class Post implements SearchableInterface
      *
      * @return Post
      */
-    public function setAuthor(string $author)
+    public function setAuthor(string $author): self
     {
         $this->author = $author;
 
@@ -181,7 +181,7 @@ class Post implements SearchableInterface
      *
      * @return string
      */
-    public function getAuthor()
+    public function getAuthor(): ?string
     {
         return $this->author;
     }
@@ -193,7 +193,7 @@ class Post implements SearchableInterface
      *
      * @return Post
      */
-    public function addGroup(GroupInterface $group)
+    public function addGroup(GroupInterface $group): self
     {
         if (!$group instanceof Production) {
             throw new Exception('Group type not supported.');
@@ -208,7 +208,7 @@ class Post implements SearchableInterface
      *
      * @param Production $group
      */
-    public function removeGroup(GroupInterface $group)
+    public function removeGroup(GroupInterface $group): self
     {
         if (!$group instanceof Production) {
             throw new Exception('Group type not supported.');
@@ -229,7 +229,7 @@ class Post implements SearchableInterface
     /**
      * {@inheritdoc}
      */
-    public function hasGroup(GroupInterface $group)
+    public function hasGroup(GroupInterface $group): bool
     {
         foreach ($this->groups as $my_group) {
             if ($group->isEqualTo($my_group)) {
@@ -246,7 +246,7 @@ class Post implements SearchableInterface
      *
      * @return Post
      */
-    public function setPinned($pinned)
+    public function setPinned(bool $pinned): self
     {
         $this->pinned = $pinned;
 
@@ -258,7 +258,7 @@ class Post implements SearchableInterface
      *
      * @return boolean
      */
-    public function getPinned()
+    public function getPinned(): ?bool
     {
         return $this->pinned;
     }
@@ -270,7 +270,7 @@ class Post implements SearchableInterface
      *
      * @return Post
      */
-    public function setParent(Post $parent = null)
+    public function setParent(?Post $parent): self
     {
         $this->parent = $parent;
 
@@ -282,7 +282,7 @@ class Post implements SearchableInterface
      *
      * @return Post
      */
-    public function getParent()
+    public function getParent(): ?Post
     {
         return $this->parent;
     }
@@ -294,7 +294,7 @@ class Post implements SearchableInterface
      *
      * @return Post
      */
-    public function addChild(Post $child)
+    public function addChild(Post $child): self
     {
         $this->children[] = $child;
 
@@ -306,7 +306,7 @@ class Post implements SearchableInterface
      *
      * @param Post $child
      */
-    public function removeChild(Post $child)
+    public function removeChild(Post $child): self
     {
         $this->children->removeElement($child);
     }
