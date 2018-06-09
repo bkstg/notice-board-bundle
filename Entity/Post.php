@@ -3,7 +3,7 @@
 namespace Bkstg\NoticeBoardBundle\Entity;
 
 use Bkstg\CoreBundle\Entity\Production;
-use Bkstg\SearchBundle\Model\SearchableInterface;
+use Bkstg\CoreBundle\Model\SearchableInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use MidnightLuke\GroupSecurityBundle\Model\GroupInterface;
 
