@@ -16,7 +16,7 @@ Bkstg\NoticeBoardBundle\Entity\Post:
         pinned:
             type: boolean
         status:
-            type: smallint
+            type: boolean
         expiry:
             type: datetime
             nullable: true

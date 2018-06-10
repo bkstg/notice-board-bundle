@@ -36,7 +36,7 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
 
             // Add parameters.
             ->setParameter('group', $production)
-            ->setParameter('status', Post::STATUS_ACTIVE)
+            ->setParameter('status', true)
             ->setParameter('now', new \DateTime())
 
             // Order by and get results.

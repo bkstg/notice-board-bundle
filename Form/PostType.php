@@ -47,8 +47,8 @@ class PostType extends AbstractType
                 ])
                 ->add('status', ChoiceType::class, [
                     'choices' => [
-                        'Active' => Post::STATUS_ACTIVE,
-                        'Closed' => Post::STATUS_CLOSED,
+                        'Active' => true,
+                        'Closed' => false,
                     ],
                     'label' => 'post.form.status',
                 ])
