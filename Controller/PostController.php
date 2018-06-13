@@ -114,6 +114,11 @@ class PostController extends Controller
             throw new NotFoundHttpException();
         }
 
+        // Ensure that this post is a part of this group.
+        if (!$post->hasGroup($production)) {
+            throw new NotFoundHttpException();
+        }
+
         // Check permissions for this action.
         if (!$auth->isGranted('edit', $post)) {
             throw new AccessDeniedException();
