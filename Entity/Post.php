@@ -30,6 +30,7 @@ class Post implements GroupableInterface
     public function __construct()
     {
         $this->groups = new ArrayCollection();
+        $this->children = new ArrayCollection();
     }
 
     /**
