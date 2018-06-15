@@ -21,3 +21,5 @@ search_result:
     notice_board: 'Notice Board'
 menu:
     notice_board: 'Notice Board'
+board:
+    no_posts: 'No posts found, <a href="%create_url%">create a new post</a>.'

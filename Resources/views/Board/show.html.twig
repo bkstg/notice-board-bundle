@@ -10,6 +10,8 @@
 
   {% for post in posts %}
     {% include '@BkstgNoticeBoard/Post/show.html.twig' with { 'post': post, 'production': production } only %}
+  {% else %}
+    <p>{{ 'board.no_posts'|trans({'%create_url%': url('bkstg_post_create', {'production_slug': production.slug})})|raw }}</p>
   {% endfor %}
   {{ knp_pagination_render(posts) }}
 {% endblock %}
