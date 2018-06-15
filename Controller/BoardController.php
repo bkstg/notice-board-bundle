@@ -41,4 +41,32 @@ class BoardController extends Controller
             'posts' => $posts,
         ]));
     }
+
+    public function archiveAction(
+        $production_slug,
+        AuthorizationCheckerInterface $auth,
+        PaginatorInterface $paginator,
+        Request $request
+    ) {
+        // Lookup the production by production_slug.
+        $production_repo = $this->em->getRepository(Production::class);
+        if (null === $production = $production_repo->findOneBy(['slug' => $production_slug])) {
+            throw new NotFoundHttpException();
+        }
+
+        // Check permissions for this action.
+        if (!$auth->isGranted('GROUP_ROLE_EDITOR', $production)) {
+            throw new AccessDeniedException();
+        }
+
+        // Get notice board posts.
+        $query = $this->em->getRepository(Post::class)->getAllInactiveQuery($production);
+
+        // Return response.
+        $posts = $paginator->paginate($query, $request->query->getInt('page', 1));
+        return new Response($this->templating->render('@BkstgNoticeBoard/Board/archive.html.twig', [
+            'production' => $production,
+            'posts' => $posts,
+        ]));
+    }
 }

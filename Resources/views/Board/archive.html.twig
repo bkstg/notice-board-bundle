@@ -1,0 +1,37 @@
+{% trans_default_domain 'BkstgNoticeBoardBundle' %}
+{% extends '@BkstgCore/layout.html.twig' %}
+{% set page_title = 'Notice Board' %}
+{% block content %}
+  <div class="alert alert-info">
+    {{ 'board.archive_info'|trans }}
+  </div>
+  <p><div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>{{ 'Author'|trans }}</th>
+          <th>{{ 'Status'|trans }}</th>
+          <th>{{ 'Post'|trans }}</th>
+          <th>{{ 'Updated'|trans }}</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for post in posts %}
+          <tr>
+            <td>{{ post.author }}</td>
+            <td>{% if post.status and post.expired %}{{ 'post.expired'|trans }}{% else %}{{ 'post.inactive'|trans }}{% endif %}</td>
+            <td>{{ post.body|striptags|truncate(50, true)|raw }}</td>
+            <td>{{ post.updated|date }}</td>
+            <td><a href="{{ url('bkstg_post_edit', {'production_slug': production.slug, 'id': post.id}) }}">{{ 'post.edit'|trans }}</a></td>
+          </tr>
+        {% else %}
+          <tr>
+            <td colspan="5">{{ 'board.archive_no_posts'|trans }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div></p>
+  {{ knp_pagination_render(posts) }}
+{% endblock %}

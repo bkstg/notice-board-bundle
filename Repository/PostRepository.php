@@ -69,8 +69,7 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
             ->setParameter('now', new \DateTime())
 
             // Order by and get results.
-            ->orderBy('p.pinned', 'DESC')
-            ->addOrderBy('p.created', 'DESC')
+            ->addOrderBy('p.updated', 'DESC')
             ->getQuery();
     }
 }

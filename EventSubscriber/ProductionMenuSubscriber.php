@@ -46,15 +46,35 @@ class ProductionMenuSubscriber implements EventSubscriberInterface
         $menu = $event->getMenu();
         $group = $event->getGroup();
 
-        // Create overview menu item.
-        $overview = $this->factory->createItem(
-            $this->translator->trans('menu.notice_board', [], 'BkstgNoticeBoardBundle'), [
+        // Create notice_board menu item.
+        $board = $this->factory->createItem('bkstg.notice_board.board', [
+            'label' => $this->translator->trans('menu.notice_board.board', [], 'BkstgNoticeBoardBundle'),
             'uri' => $this->url_generator->generate(
                 'bkstg_board_show',
                 ['production_slug' => $group->getSlug()]
             ),
             'extras' => ['icon' => 'comment-o'],
         ]);
-        $menu->addChild($overview);
+        $menu->addChild($board);
+
+        // If this user is an editor create the post and archive items.
+        if ($this->auth->isGranted('GROUP_ROLE_EDITOR', $group)) {
+            $posts = $this->factory->createItem('bkstg.notice_board.posts', [
+                'label' => $this->translator->trans('menu.notice_board.posts', [], 'BkstgNoticeBoardBundle'),
+                'uri' => $this->url_generator->generate(
+                    'bkstg_board_show',
+                    ['production_slug' => $group->getSlug()]
+                ),
+            ]);
+            $board->addChild($posts);
+            $archive = $this->factory->createItem('bkstg.notice_board.archive', [
+                'label' => $this->translator->trans('menu.notice_board.archive', [], 'BkstgNoticeBoardBundle'),
+                'uri' => $this->url_generator->generate(
+                    'bkstg_board_archive',
+                    ['production_slug' => $group->getSlug()]
+                ),
+            ]);
+            $board->addChild($archive);
+        }
     }
 }

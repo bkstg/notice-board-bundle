@@ -1,4 +1,6 @@
 post:
+    expired: 'Expired'
+    inactive: 'Inactive'
     reply: 'Reply'
     edit: 'Edit'
     posted_by: 'Posted %date% by %author%'
@@ -20,6 +22,11 @@ timeline:
 search_result:
     notice_board: 'Notice Board'
 menu:
-    notice_board: 'Notice Board'
+    notice_board:
+        board: 'Notice Board'
+        archive: 'Archive'
+        posts: 'Posts'
 board:
+    archive_no_posts: 'No posts in the archive right now.'
+    archive_info: 'These posts have either expired or are inactive, you can edit them here.'
     no_posts: 'No posts found, <a href="%create_url%">create a new post</a>.'

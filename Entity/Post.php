@@ -116,6 +116,14 @@ class Post implements GroupableInterface
     }
 
     /**
+     * Check if expired.
+     */
+    public function isExpired(): bool
+    {
+        return ($this->expiry !== null && $this->expiry < new \DateTime('now'));
+    }
+
+    /**
      * Set created
      *
      * @param \DateTime $created
