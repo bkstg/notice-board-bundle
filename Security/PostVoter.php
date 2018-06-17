@@ -30,9 +30,14 @@ class PostVoter extends GroupableEntityVoter
     public function canEdit(GroupableInterface $post, TokenInterface $token)
     {
         $user = $token->getUser();
-        $decision = parent::canEdit($post, $token);
-        if ($decision === false) {
-            return ($post->getAuthor() == $user->getUsername());
+        if ($post->getAuthor() == $user->getUsername()) {
+            return true;
+        }
+
+        foreach ($event->getGroups() as $group) {
+            if ($this->decision_manager->decide($token, ['GROUP_ROLE_ADMIN'], $group)) {
+                return true;
+            }
         }
         return $decision;
     }
