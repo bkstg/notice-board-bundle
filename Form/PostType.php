@@ -45,12 +45,12 @@ class PostType extends AbstractType
                     'required' => false,
                     'label' => 'post.form.pinned',
                 ])
-                ->add('status', ChoiceType::class, [
+                ->add('active', ChoiceType::class, [
                     'choices' => [
                         'Active' => true,
                         'Closed' => false,
                     ],
-                    'label' => 'post.form.status',
+                    'label' => 'post.form.active',
                 ])
                 ->add('expiry', DateTimeType::class, [
                     'required' => false,

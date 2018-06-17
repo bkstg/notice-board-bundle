@@ -10,7 +10,7 @@
       <thead>
         <tr>
           <th>{{ 'Author'|trans }}</th>
-          <th>{{ 'Status'|trans }}</th>
+          <th>{{ 'Active'|trans }}</th>
           <th>{{ 'Post'|trans }}</th>
           <th>{{ 'Updated'|trans }}</th>
           <th></th>
@@ -20,7 +20,7 @@
         {% for post in posts %}
           <tr>
             <td>{{ post.author }}</td>
-            <td>{% if post.status and post.expired %}{{ 'post.expired'|trans }}{% else %}{{ 'post.inactive'|trans }}{% endif %}</td>
+            <td>{% if post.active and post.expired %}{{ 'post.expired'|trans }}{% else %}{{ 'post.inactive'|trans }}{% endif %}</td>
             <td>{{ post.body|striptags|truncate(50, true)|raw }}</td>
             <td>{{ post.updated|date }}</td>
             <td><a href="{{ url('bkstg_post_edit', {'production_slug': production.slug, 'id': post.id}) }}">{{ 'post.edit'|trans }}</a></td>

@@ -3,6 +3,7 @@
 namespace Bkstg\NoticeBoardBundle\Entity;
 
 use Bkstg\CoreBundle\Entity\Production;
+use Bkstg\CoreBundle\Model\PublishableInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use MidnightLuke\GroupSecurityBundle\Model\GroupInterface;
 use MidnightLuke\GroupSecurityBundle\Model\GroupableInterface;
@@ -10,12 +11,13 @@ use MidnightLuke\GroupSecurityBundle\Model\GroupableInterface;
 /**
  * Post
  */
-class Post implements GroupableInterface
+class Post implements GroupableInterface, PublishableInterface
 {
     private $id;
     private $body;
     private $pinned;
-    private $status;
+    private $active;
+    private $published;
     private $expiry;
     private $created;
     private $updated;
@@ -68,27 +70,46 @@ class Post implements GroupableInterface
     }
 
     /**
-     * Set status
+     * Set active
      *
-     * @param integer $status
+     * @param integer $active
      *
      * @return Post
      */
-    public function setStatus(bool $status): self
+    public function setActive(bool $active): self
     {
-        $this->status = $status;
+        $this->active = $active;
 
         return $this;
     }
 
     /**
-     * Get status
+     * Get active
      *
      * @return integer
      */
-    public function getStatus(): ?bool
+    public function isActive(): bool
     {
-        return $this->status;
+        return ($this->active === true);
+    }
+
+    /**
+     * Set published
+     * @return $this
+     */
+    public function setPublished(bool $published): self
+    {
+        $this->published = $published;
+        return $this;
+    }
+
+    /**
+     * Get published
+     * @return
+     */
+    public function isPublished(): bool
+    {
+        return ($this->published === true);
     }
 
     /**

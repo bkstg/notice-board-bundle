@@ -15,7 +15,9 @@ Bkstg\NoticeBoardBundle\Entity\Post:
             nullable: true
         pinned:
             type: boolean
-        status:
+        active:
+            type: boolean
+        published:
             type: boolean
         expiry:
             type: datetime

@@ -31,7 +31,7 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
 
             // Add conditions.
             ->andWhere($qb->expr()->eq('g', ':group'))
-            ->andWhere($qb->expr()->eq('p.status', ':status'))
+            ->andWhere($qb->expr()->eq('p.active', ':active'))
             ->andWhere($qb->expr()->isNull('p.parent'))
             ->andWhere($qb->expr()->orX(
                 $qb->expr()->isNull('p.expiry'),
@@ -40,7 +40,7 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
 
             // Add parameters.
             ->setParameter('group', $production)
-            ->setParameter('status', true)
+            ->setParameter('active', true)
             ->setParameter('now', new \DateTime())
 
             // Order by and get results.
@@ -59,13 +59,13 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
             ->andWhere($qb->expr()->eq('g', ':group'))
             ->andWhere($qb->expr()->isNull('p.parent'))
             ->andWhere($qb->expr()->orX(
-                $qb->expr()->eq('p.status', ':status'),
+                $qb->expr()->eq('p.active', ':active'),
                 $qb->expr()->lt('p.expiry', ':now')
             ))
 
             // Add parameters.
             ->setParameter('group', $production)
-            ->setParameter('status', false)
+            ->setParameter('active', false)
             ->setParameter('now', new \DateTime())
 
             // Order by and get results.

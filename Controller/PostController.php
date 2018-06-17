@@ -39,7 +39,7 @@ class PostController extends Controller
 
         // Create a new post.
         $post = new Post();
-        $post->setStatus(true);
+        $post->setActive(true);
         $post->setPinned(false);
         $post->setAuthor($user->getUsername());
         $post->addGroup($production);
