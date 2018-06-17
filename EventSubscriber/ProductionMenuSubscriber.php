@@ -3,32 +3,22 @@
 namespace Bkstg\NoticeBoardBundle\EventSubscriber;
 
 use Bkstg\CoreBundle\Event\ProductionMenuCollectionEvent;
-use Bkstg\CoreBundle\Menu\Item\IconMenuItem;
+use Bkstg\NoticeBoardBundle\BkstgNoticeBoardBundle;
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Translation\TranslatorInterface;
 
 class ProductionMenuSubscriber implements EventSubscriberInterface
 {
-
     private $factory;
-    private $url_generator;
     private $auth;
-    private $translator;
 
     public function __construct(
         FactoryInterface $factory,
-        UrlGeneratorInterface $url_generator,
-        AuthorizationCheckerInterface $auth,
-        TranslatorInterface $translator
+        AuthorizationCheckerInterface $auth
     ) {
         $this->factory = $factory;
-        $this->url_generator = $url_generator;
         $this->auth = $auth;
-        $this->translator = $translator;
     }
 
     public static function getSubscribedEvents()
@@ -47,32 +37,29 @@ class ProductionMenuSubscriber implements EventSubscriberInterface
         $group = $event->getGroup();
 
         // Create notice_board menu item.
-        $board = $this->factory->createItem('bkstg.notice_board.board', [
-            'label' => $this->translator->trans('menu.notice_board.board', [], 'BkstgNoticeBoardBundle'),
-            'uri' => $this->url_generator->generate(
-                'bkstg_board_show',
-                ['production_slug' => $group->getSlug()]
-            ),
-            'extras' => ['icon' => 'comment-o'],
+        $board = $this->factory->createItem('menu_item.notice_board', [
+            'route' => 'bkstg_board_show',
+            'routeParameters' => ['production_slug' => $group->getSlug()],
+            'extras' => [
+                'icon' => 'comment-o',
+                'translation_domain' => BkstgNoticeBoardBundle::TRANSLATION_DOMAIN,
+            ],
         ]);
         $menu->addChild($board);
 
         // If this user is an editor create the post and archive items.
         if ($this->auth->isGranted('GROUP_ROLE_EDITOR', $group)) {
-            $posts = $this->factory->createItem('bkstg.notice_board.posts', [
-                'label' => $this->translator->trans('menu.notice_board.posts', [], 'BkstgNoticeBoardBundle'),
-                'uri' => $this->url_generator->generate(
-                    'bkstg_board_show',
-                    ['production_slug' => $group->getSlug()]
-                ),
+            $posts = $this->factory->createItem('menu_item.notice_board_posts', [
+                'route' => 'bkstg_board_show',
+                'routeParameters' => ['production_slug' => $group->getSlug()],
+                'extras' => ['translation_domain' => BkstgNoticeBoardBundle::TRANSLATION_DOMAIN],
             ]);
             $board->addChild($posts);
-            $archive = $this->factory->createItem('bkstg.notice_board.archive', [
-                'label' => $this->translator->trans('menu.notice_board.archive', [], 'BkstgNoticeBoardBundle'),
-                'uri' => $this->url_generator->generate(
-                    'bkstg_board_archive',
-                    ['production_slug' => $group->getSlug()]
-                ),
+
+            $archive = $this->factory->createItem('menu_item.notice_board_archive', [
+                'route' => 'bkstg_board_archive',
+                'routeParameters' => ['production_slug' => $group->getSlug()],
+                'extras' => ['translation_domain' => BkstgNoticeBoardBundle::TRANSLATION_DOMAIN],
             ]);
             $board->addChild($archive);
         }

@@ -21,11 +21,10 @@ timeline:
     posted_in: 'posted in'
 search_result:
     notice_board: 'Notice Board'
-menu:
-    notice_board:
-        board: 'Notice Board'
-        archive: 'Archive'
-        posts: 'Posts'
+menu_item:
+    notice_board: 'Notice Board'
+    notice_board_posts: 'Posts'
+    notice_board_archive: 'Archive'
 board:
     archive_no_posts: 'No posts in the archive right now.'
     archive_info: 'These posts have either expired or are inactive, you can edit them here.'
