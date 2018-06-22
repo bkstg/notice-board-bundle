@@ -27,7 +27,7 @@ class PostVoter extends GroupableEntityVoter
         return true;
     }
 
-    public function canEdit(GroupableInterface $post, TokenInterface $token)
+    public function canEdit(GroupableInterface $post, TokenInterface $token): bool
     {
         $user = $token->getUser();
         if ($post->getAuthor() == $user->getUsername()) {
