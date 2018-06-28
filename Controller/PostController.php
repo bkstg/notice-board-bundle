@@ -96,7 +96,10 @@ class PostController extends Controller
                 'success',
                 $this->translator->trans('post.created', [], BkstgNoticeBoardBundle::TRANSLATION_DOMAIN)
             );
-            return new RedirectResponse($this->url_generator->generate('bkstg_board_show', ['production_slug' => $production->getSlug()]));
+            return new RedirectResponse($this->url_generator->generate(
+                'bkstg_board_show',
+                ['production_slug' => $production->getSlug()]
+            ));
         }
 
         // Render the form.
@@ -152,7 +155,10 @@ class PostController extends Controller
                 'success',
                 $this->translator->trans('post.updated', [], BkstgNoticeBoardBundle::TRANSLATION_DOMAIN)
             );
-            return new RedirectResponse($this->url_generator->generate('bkstg_board_show', ['production_slug' => $production->getSlug()]));
+            return new RedirectResponse($this->url_generator->generate(
+                'bkstg_board_show',
+                ['production_slug' => $production->getSlug()]
+            ));
         }
 
         // Render the form.
@@ -205,7 +211,10 @@ class PostController extends Controller
                     '%post%' => $post->getName(),
                 ], BkstgNoticeBoardBundle::TRANSLATION_DOMAIN)
             );
-            return new RedirectResponse($this->url_generator->generate('bkstg_board_show', ['production_slug' => $production->getSlug()]));
+            return new RedirectResponse($this->url_generator->generate(
+                'bkstg_board_show',
+                ['production_slug' => $production->getSlug()]
+            ));
         }
 
         // Render the form.
