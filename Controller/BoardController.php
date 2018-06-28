@@ -14,12 +14,23 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class BoardController extends Controller
 {
+    /**
+     * Show the notice board.
+     *
+     * @param  string                        $production_slug The production slug.
+     * @param  AuthorizationCheckerInterface $auth            The authorization checker service.
+     * @param  PaginatorInterface            $paginator       The paginator service.
+     * @param  Request                       $request         The incoming request.
+     * @throws NotFoundHttpException When the production is not found.
+     * @throws AccessDeniedException When the user is not a member of the production.
+     * @return Response
+     */
     public function showAction(
-        $production_slug,
+        string $production_slug,
         AuthorizationCheckerInterface $auth,
         PaginatorInterface $paginator,
         Request $request
-    ) {
+    ): Response {
         // Lookup the production by production_slug.
         $production_repo = $this->em->getRepository(Production::class);
         if (null === $production = $production_repo->findOneBy(['slug' => $production_slug])) {
@@ -42,12 +53,23 @@ class BoardController extends Controller
         ]));
     }
 
+    /**
+     * Show archive for the notice board.
+     *
+     * @param  string                        $production_slug The production slug.
+     * @param  AuthorizationCheckerInterface $auth            The authorization checker service.
+     * @param  PaginatorInterface            $paginator       The paginator service.
+     * @param  Request                       $request         The incoming request.
+     * @throws NotFoundHttpException When the production is not found.
+     * @throws AccessDeniedException When the user is not an editor of the production.
+     * @return Response
+     */
     public function archiveAction(
-        $production_slug,
+        string $production_slug,
         AuthorizationCheckerInterface $auth,
         PaginatorInterface $paginator,
         Request $request
-    ) {
+    ): Response {
         // Lookup the production by production_slug.
         $production_repo = $this->em->getRepository(Production::class);
         if (null === $production = $production_repo->findOneBy(['slug' => $production_slug])) {
