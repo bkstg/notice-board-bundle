@@ -5,12 +5,10 @@ namespace Bkstg\NoticeBoardBundle\Entity;
 use Bkstg\CoreBundle\Entity\Production;
 use Bkstg\CoreBundle\Model\PublishableInterface;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use MidnightLuke\GroupSecurityBundle\Model\GroupInterface;
 use MidnightLuke\GroupSecurityBundle\Model\GroupableInterface;
 
-/**
- * Post
- */
 class Post implements GroupableInterface, PublishableInterface
 {
     private $id;
@@ -27,7 +25,7 @@ class Post implements GroupableInterface, PublishableInterface
     private $children;
 
     /**
-     * Constructor
+     * Create new post.
      */
     public function __construct()
     {
@@ -36,7 +34,7 @@ class Post implements GroupableInterface, PublishableInterface
     }
 
     /**
-     * Get id
+     * Get id.
      *
      * @return integer
      */
@@ -46,11 +44,10 @@ class Post implements GroupableInterface, PublishableInterface
     }
 
     /**
-     * Set body
+     * Set body.
      *
-     * @param string $body
-     *
-     * @return Post
+     * @param string $body The body.
+     * @return self
      */
     public function setBody(string $body): self
     {
@@ -60,7 +57,7 @@ class Post implements GroupableInterface, PublishableInterface
     }
 
     /**
-     * Get body
+     * Get body.
      *
      * @return string
      */
@@ -70,11 +67,10 @@ class Post implements GroupableInterface, PublishableInterface
     }
 
     /**
-     * Set active
+     * Set active.
      *
-     * @param integer $active
-     *
-     * @return Post
+     * @param boolean $active The active state.
+     * @return self
      */
     public function setActive(bool $active): self
     {
@@ -84,9 +80,9 @@ class Post implements GroupableInterface, PublishableInterface
     }
 
     /**
-     * Get active
+     * Get active.
      *
-     * @return integer
+     * @return boolean
      */
     public function isActive(): bool
     {
@@ -94,8 +90,10 @@ class Post implements GroupableInterface, PublishableInterface
     }
 
     /**
-     * Set published
-     * @return $this
+     * Set published.
+     *
+     * @param boolean $published The published state.
+     * @return self
      */
     public function setPublished(bool $published): self
     {
@@ -104,8 +102,9 @@ class Post implements GroupableInterface, PublishableInterface
     }
 
     /**
-     * Get published
-     * @return
+     * Get published.
+     *
+     * @return boolean
      */
     public function isPublished(): bool
     {
@@ -113,23 +112,21 @@ class Post implements GroupableInterface, PublishableInterface
     }
 
     /**
-     * Set expiry
+     * Set expiry.
      *
-     * @param \DateTime $expiry
-     *
-     * @return Post
+     * @param ?\DateTimeInterface $expiry The expiry time.
+     * @return self
      */
     public function setExpiry(?\DateTimeInterface $expiry): self
     {
         $this->expiry = $expiry;
-
         return $this;
     }
 
     /**
-     * Get expiry
+     * Get expiry.
      *
-     * @return \DateTime
+     * @return \DateTimeInterface
      */
     public function getExpiry(): ?\DateTimeInterface
     {
@@ -138,6 +135,8 @@ class Post implements GroupableInterface, PublishableInterface
 
     /**
      * Check if expired.
+     *
+     * @return boolean
      */
     public function isExpired(): bool
     {
@@ -145,11 +144,10 @@ class Post implements GroupableInterface, PublishableInterface
     }
 
     /**
-     * Set created
+     * Set created.
      *
-     * @param \DateTime $created
-     *
-     * @return Post
+     * @param \DateTimeInterface $created The created time.
+     * @return self
      */
     public function setCreated(\DateTimeInterface $created): self
     {
@@ -159,9 +157,9 @@ class Post implements GroupableInterface, PublishableInterface
     }
 
     /**
-     * Get created
+     * Get created.
      *
-     * @return \DateTime
+     * @return \DateTimeInterface
      */
     public function getCreated(): ?\DateTimeInterface
     {
@@ -169,11 +167,10 @@ class Post implements GroupableInterface, PublishableInterface
     }
 
     /**
-     * Set updated
+     * Set updated.
      *
-     * @param \DateTime $updated
-     *
-     * @return Post
+     * @param \DateTimeInterface $updated The updated time.
+     * @return self
      */
     public function setUpdated(\DateTimeInterface $updated): self
     {
@@ -183,9 +180,9 @@ class Post implements GroupableInterface, PublishableInterface
     }
 
     /**
-     * Get updated
+     * Get updated.
      *
-     * @return \DateTime
+     * @return \DateTimeInterface
      */
     public function getUpdated(): ?\DateTimeInterface
     {
@@ -193,11 +190,10 @@ class Post implements GroupableInterface, PublishableInterface
     }
 
     /**
-     * Set author
+     * Set author.
      *
-     * @param string $author
-     *
-     * @return Post
+     * @param string $author The author to set.
+     * @return self
      */
     public function setAuthor(string $author): self
     {
@@ -207,7 +203,7 @@ class Post implements GroupableInterface, PublishableInterface
     }
 
     /**
-     * Get author
+     * Get author.
      *
      * @return string
      */
@@ -217,16 +213,16 @@ class Post implements GroupableInterface, PublishableInterface
     }
 
     /**
-     * Add group
+     * {@inheritdoc}
      *
-     * @param Production $group
-     *
-     * @return Post
+     * @param GroupInterface $group The group to add.
+     * @throws \Exception If the group is not a production.
+     * @return self
      */
     public function addGroup(GroupInterface $group): self
     {
         if (!$group instanceof Production) {
-            throw new Exception('Group type not supported.');
+            throw new \Exception(sprintf('The group type "%s" is not supported.', get_class($group)));
         }
         $this->groups[] = $group;
 
@@ -234,47 +230,43 @@ class Post implements GroupableInterface, PublishableInterface
     }
 
     /**
-     * Remove group
+     * {@inheritdoc}
      *
-     * @param Production $group
+     * @param GroupInterface $group The group to remove.
+     * @return self
      */
     public function removeGroup(GroupInterface $group): self
     {
-        if (!$group instanceof Production) {
-            throw new Exception('Group type not supported.');
-        }
         $this->groups->removeElement($group);
+        return $this;
     }
 
     /**
-     * Get groups
+     * Get groups.
      *
      * @return Collection
      */
-    public function getGroups()
+    public function getGroups(): Collection
     {
         return $this->groups;
     }
 
     /**
      * {@inheritdoc}
+     *
+     * @param  GroupInterface $group The group to check for.
+     * @return boolean
      */
     public function hasGroup(GroupInterface $group): bool
     {
-        foreach ($this->groups as $my_group) {
-            if ($group->isEqualTo($my_group)) {
-                return true;
-            }
-        }
-        return false;
+        return $this->groups->contains($group);
     }
 
     /**
-     * Set pinned
+     * Set pinned.
      *
-     * @param boolean $pinned
-     *
-     * @return Post
+     * @param boolean $pinned The pinned state.
+     * @return self
      */
     public function setPinned(bool $pinned): self
     {
@@ -284,21 +276,20 @@ class Post implements GroupableInterface, PublishableInterface
     }
 
     /**
-     * Get pinned
+     * Get pinned.
      *
      * @return boolean
      */
-    public function getPinned(): ?bool
+    public function getPinned(): bool
     {
-        return $this->pinned;
+        return ($this->pinned === true);
     }
 
     /**
-     * Set parent
+     * Set parent.
      *
-     * @param Post $parent
-     *
-     * @return Post
+     * @param ?Post $parent The parent post.
+     * @return self
      */
     public function setParent(?Post $parent): self
     {
@@ -308,7 +299,7 @@ class Post implements GroupableInterface, PublishableInterface
     }
 
     /**
-     * Get parent
+     * Get parent.
      *
      * @return Post
      */
@@ -318,40 +309,45 @@ class Post implements GroupableInterface, PublishableInterface
     }
 
     /**
-     * Add child
+     * Add child post.
      *
-     * @param Post $child
-     *
-     * @return Post
+     * @param Post $child The child post to add.
+     * @return self
      */
     public function addChild(Post $child): self
     {
         $this->children[] = $child;
-
         return $this;
     }
 
     /**
-     * Remove child
+     * Remove child post.
      *
-     * @param Post $child
+     * @param Post $child The child to remove.
+     * @return self
      */
     public function removeChild(Post $child): self
     {
         $this->children->removeElement($child);
+        return $this;
     }
 
     /**
-     * Get children
+     * Get children.
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
-    public function getChildren()
+    public function getChildren(): Collection
     {
         return $this->children;
     }
 
-    public function __toString()
+    /**
+     * Convert to a string.
+     *
+     * @return string
+     */
+    public function __toString(): ?string
     {
         return $this->body;
     }

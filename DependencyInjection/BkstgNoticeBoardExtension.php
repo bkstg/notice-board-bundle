@@ -7,15 +7,14 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 
-/**
- * This is the class that loads and manages your bundle configuration.
- *
- * @link http://symfony.com/doc/current/cookbook/bundles/extension.html
- */
 class BkstgNoticeBoardExtension extends Extension
 {
     /**
      * {@inheritdoc}
+     *
+     * @param array            $configs   The configuration array.
+     * @param ContainerBuilder $container The container.
+     * @return void
      */
     public function load(array $configs, ContainerBuilder $container)
     {
@@ -25,7 +24,7 @@ class BkstgNoticeBoardExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
 
-        // If the timeline bundle is active register notification listener.
+        // If the timeline bundle is active register timeline services.
         $bundles = $container->getParameter('kernel.bundles');
         if (isset($bundles['BkstgTimelineBundle'])) {
             $loader->load('services.timeline.yml');
