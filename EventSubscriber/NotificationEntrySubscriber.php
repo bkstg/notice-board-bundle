@@ -8,21 +8,24 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class NotificationEntrySubscriber implements EventSubscriberInterface
 {
     /**
-     * Return the events this subscriber listens for,
+     * Return the events this subscriber listens for.
      *
      * @return array The subscribed events.
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
-        // return the subscribed events, their methods and priorities
-        return ['bkstg.timeline.notification_entry' => [['checkPostEntry', 0]]];
+        // Use raw notification key, we can't guarantee the bundle is available.
+        return [
+            'bkstg.timeline.notification_entry' => [
+                ['checkPostEntry', 0]
+            ]
+        ];
     }
 
     /**
      * Check the entry for whether or not to notify.
      *
      * @param  NotificationEntryEvent $event The notification event.
-     *
      * @return void
      */
     public function checkPostEntry(NotificationEntryEvent $event)

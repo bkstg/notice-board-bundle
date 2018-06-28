@@ -12,8 +12,12 @@ class ReplyType extends AbstractType
 {
     /**
      * {@inheritdoc}
+     *
+     * @param  FormBuilderInterface $builder The form builder.
+     * @param  array                $options The form options.
+     * @return void
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('body', CKEditorType::class, [
@@ -26,6 +30,9 @@ class ReplyType extends AbstractType
 
     /**
      * {@inheritdoc}
+     *
+     * @param  OptionsResolver $resolver The option resolver.
+     * @return void
      */
     public function configureOptions(OptionsResolver $resolver)
     {
@@ -33,13 +40,5 @@ class ReplyType extends AbstractType
             'translation_domain' => 'BkstgNoticeBoardBundle',
             'data_class' => Post::class,
         ]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getBlockPrefix()
-    {
-        return 'bkstg_noticeboardbundle_reply';
     }
 }

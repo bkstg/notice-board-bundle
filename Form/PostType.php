@@ -18,6 +18,12 @@ class PostType extends AbstractType
     private $context;
     private $auth;
 
+    /**
+     * Create a new post form.
+     *
+     * @param ProductionContextProviderInterface $context The production context service.
+     * @param AuthorizationCheckerInterface      $auth    The authorization checker service.
+     */
     public function __construct(
         ProductionContextProviderInterface $context,
         AuthorizationCheckerInterface $auth
@@ -28,8 +34,12 @@ class PostType extends AbstractType
 
     /**
      * {@inheritdoc}
+     *
+     * @param  FormBuilderInterface $builder The form builder.
+     * @param  array                $options The form options.
+     * @return void
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('body', CKEditorType::class, [
@@ -39,6 +49,7 @@ class PostType extends AbstractType
             ])
         ;
 
+        // Add admin things if the user is an admin.
         if ($this->auth->isGranted('GROUP_ROLE_EDITOR', $this->context->getContext())) {
             $builder
                 ->add('pinned', CheckboxType::class, [
@@ -64,20 +75,15 @@ class PostType extends AbstractType
 
     /**
      * {@inheritdoc}
+     *
+     * @param  OptionsResolver $resolver The option resolver.
+     * @return void
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'translation_domain' => 'BkstgNoticeBoardBundle',
             'data_class' => Post::class,
         ]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getBlockPrefix()
-    {
-        return 'bkstg_noticeboardbundle_post';
     }
 }

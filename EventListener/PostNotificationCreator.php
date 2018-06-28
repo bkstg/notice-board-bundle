@@ -2,11 +2,11 @@
 
 namespace Bkstg\NoticeBoardBundle\EventListener;
 
-use Bkstg\CoreBundle\User\UserProviderInterface;
 use Bkstg\NoticeBoardBundle\Entity\Post;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Spy\Timeline\Driver\ActionManagerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class PostNotificationCreator
 {
@@ -14,6 +14,13 @@ class PostNotificationCreator
     private $user_provider;
     private $url_genertor;
 
+    /**
+     * Create a new post notification listener.
+     *
+     * @param ActionManagerInterface $action_manager The action manager service.
+     * @param UserProviderInterface  $user_provider  The user provider service.
+     * @param UrlGeneratorInterface  $url_generator  The url generator service.
+     */
     public function __construct(
         ActionManagerInterface $action_manager,
         UserProviderInterface $user_provider,
@@ -24,7 +31,13 @@ class PostNotificationCreator
         $this->url_generator = $url_generator;
     }
 
-    public function postPersist(LifecycleEventArgs $args)
+    /**
+     * Listen to post-persist events.
+     *
+     * @param  LifecycleEventArgs $args The lifecycle arguments.
+     * @return void
+     */
+    public function postPersist(LifecycleEventArgs $args): void
     {
         $post = $args->getObject();
 

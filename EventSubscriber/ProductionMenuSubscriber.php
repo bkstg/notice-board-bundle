@@ -13,6 +13,12 @@ class ProductionMenuSubscriber implements EventSubscriberInterface
     private $factory;
     private $auth;
 
+    /**
+     * Create a new production menu subscriber.
+     *
+     * @param FactoryInterface              $factory The menu factory service.
+     * @param AuthorizationCheckerInterface $auth    The authorization checker service.
+     */
     public function __construct(
         FactoryInterface $factory,
         AuthorizationCheckerInterface $auth
@@ -21,9 +27,13 @@ class ProductionMenuSubscriber implements EventSubscriberInterface
         $this->auth = $auth;
     }
 
-    public static function getSubscribedEvents()
+    /**
+     * Return the events this subscriber listens for.
+     *
+     * @return array The subscribed events.
+     */
+    public static function getSubscribedEvents(): array
     {
-        // return the subscribed events, their methods and priorities
         return [
            ProductionMenuCollectionEvent::NAME => [
                ['addNoticeBoardItem', 10],
@@ -31,7 +41,12 @@ class ProductionMenuSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function addNoticeBoardItem(ProductionMenuCollectionEvent $event)
+    /**
+     * Add the notice board menu item.
+     *
+     * @param ProductionMenuCollectionEvent $event The menu collection event.
+     */
+    public function addNoticeBoardItem(ProductionMenuCollectionEvent $event): void
     {
         $menu = $event->getMenu();
         $group = $event->getGroup();
