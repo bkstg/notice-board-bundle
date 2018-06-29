@@ -5,9 +5,10 @@ namespace Bkstg\NoticeBoardBundle\Repository;
 use Bkstg\CoreBundle\Entity\Production;
 use Bkstg\NoticeBoardBundle\Entity\Post;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 
-class PostRepository extends \Doctrine\ORM\EntityRepository
+class PostRepository extends EntityRepository
 {
     /**
      * Find all active posts.

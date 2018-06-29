@@ -3,7 +3,7 @@
 {% set page_title = 'Notice Board' %}
 {% block content %}
   <p>
-    <a class="btn btn-primary" href="{{ url('bkstg_post_create', {'production_slug': production.slug}) }}">
+    <a class="btn btn-success" href="{{ url('bkstg_post_create', {'production_slug': production.slug}) }}">
       <i class="fa fa-plus"></i> {{ 'post.create_new'|trans }}
     </a>
   </p>

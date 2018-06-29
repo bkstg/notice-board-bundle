@@ -1,3 +1,6 @@
+notice_board: 'Notice board'
+edit: 'Edit'
+delete: 'Delete'
 post:
     expired: 'Expired'
     inactive: 'Inactive'
@@ -6,7 +9,7 @@ post:
     posted_by: 'Posted %date% by %author%'
     edited_flag: '(edited)'
     pinned: 'Post is pinned'
-    create_new: 'Create new Post'
+    create_new: 'Create new post'
     created: 'Post created.'
     updated: 'Post updated.'
     form:
@@ -17,6 +20,11 @@ post:
         expiry: 'Expiry'
         admin_options: 'Admin options'
         submit: 'Submit'
+    label:
+        author: 'Author'
+        status: 'Status'
+        body: 'Body'
+        updated: 'Updated'
 timeline:
     posted_in: 'posted in'
 search_result:

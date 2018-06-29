@@ -1,6 +1,7 @@
-{% trans_default_domain 'BkstgNoticeBoardBundle' %}
 {% extends '@BkstgCore/layout.html.twig' %}
-{% set page_title = 'Notice Board' %}
+{% trans_default_domain 'BkstgNoticeBoardBundle' %}
+{% set page_title = 'notice_board'|trans|title %}
+
 {% block content %}
   <div class="alert alert-info">
     {{ 'board.archive_info'|trans }}
@@ -9,21 +10,26 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>{{ 'Author'|trans }}</th>
-          <th>{{ 'Active'|trans }}</th>
-          <th>{{ 'Post'|trans }}</th>
-          <th>{{ 'Updated'|trans }}</th>
           <th></th>
+          <th>{{ 'post.label.author'|trans }}</th>
+          <th>{{ 'post.label.status'|trans }}</th>
+          <th>{{ 'post.label.body'|trans }}</th>
+          <th>{{ 'post.label.updated'|trans }}</th>
         </tr>
       </thead>
       <tbody>
         {% for post in posts %}
           <tr>
-            <td>{{ post.author }}</td>
+            <td>
+              <div class="btn-group btn-group-sm">
+                <a href="{{ url('bkstg_post_update', { 'production_slug': production.slug, 'id': post.id}) }}" class="btn btn-info"><i class="fa fa-pencil" aria-hidden="true"></i><span class="sr-only">{{ 'edit'|trans }}</span></a>
+                <a href="{{ url('bkstg_post_delete', { 'production_slug': production.slug, 'id': post.id}) }}" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i><span class="sr-only">{{ 'delete'|trans }}</span></a>
+              </div>
+            </td>
+            <td>{{ get_user(post.author) }}</td>
             <td>{% if post.active and post.expired %}{{ 'post.expired'|trans }}{% else %}{{ 'post.inactive'|trans }}{% endif %}</td>
-            <td>{{ post.body|striptags|truncate(50, true)|raw }}</td>
-            <td>{{ post.updated|date }}</td>
-            <td><a href="{{ url('bkstg_post_edit', {'production_slug': production.slug, 'id': post.id}) }}">{{ 'post.edit'|trans }}</a></td>
+            <td>{{ post.body|striptags|truncate(50, true)|purify }}</td>
+            <td>{{ post.updated|date(full_date) }}</td>
           </tr>
         {% else %}
           <tr>

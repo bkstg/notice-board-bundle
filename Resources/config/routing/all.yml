@@ -10,7 +10,7 @@ bkstg_post_create:
     path: /create
     defaults:
         _controller: Bkstg\NoticeBoardBundle\Controller\PostController:createAction
-bkstg_post_edit:
+bkstg_post_update:
     path: /{id}/edit
     defaults:
         _controller: Bkstg\NoticeBoardBundle\Controller\PostController:updateAction

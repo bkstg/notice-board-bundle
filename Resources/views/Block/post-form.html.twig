@@ -1,6 +1,0 @@
-{% trans_default_domain 'BkstgNoticeBoardBundle' %}
-{% extends sonata_block.templates.block_base %}
-{% form_theme form 'bootstrap_3_layout.html.twig' %}
-{% block block %}
-  {% include '@BkstgNoticeBoard/Post/form.html.twig' with { 'form': form, 'production': production, 'post': settings.post } only %}
-{% endblock %}
