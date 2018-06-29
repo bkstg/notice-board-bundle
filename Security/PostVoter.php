@@ -11,8 +11,12 @@ class PostVoter extends GroupableEntityVoter
 {
     /**
      * {@inheritdoc}
+     *
+     * @param  mixed $attribute The attribute to vote on.
+     * @param  mixed $subject   The subject to vote on.
+     * @return boolean
      */
-    protected function supports($attribute, $subject)
+    protected function supports($attribute, $subject): bool
     {
         // if the attribute isn't one we support, return false
         if (!in_array($attribute, [self::VIEW, self::EDIT])) {
@@ -27,6 +31,13 @@ class PostVoter extends GroupableEntityVoter
         return true;
     }
 
+    /**
+     * Allow authors to edit and delete their posts.
+     *
+     * @param  GroupableInterface $post  The post to vote on.
+     * @param  TokenInterface     $token The token to vote on.
+     * @return boolean
+     */
     public function canEdit(GroupableInterface $post, TokenInterface $token): bool
     {
         $user = $token->getUser();
@@ -39,6 +50,7 @@ class PostVoter extends GroupableEntityVoter
                 return true;
             }
         }
-        return $decision;
+
+        return false;
     }
 }
