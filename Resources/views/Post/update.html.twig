@@ -1,9 +1,13 @@
-{% trans_default_domain 'BkstgNoticeBoardBundle' %}
 {% extends '@BkstgCore/layout.html.twig' %}
-{% set page_title = 'Edit post' %}
+{% trans_default_domain 'BkstgNoticeBoardBundle' %}
+{% set page_title = 'post.edit'|trans %}
+
 {% block content %}
+  {% include '@BkstgNoticeBoard/Post/_actions.html.twig' with { 'post': post, 'production': production } only %}
   {% if post.parent is not empty %}
-    {% include '@BkstgNoticeBoard/Post/show.html.twig' with { 'post': post.parent, 'production': production, 'show_actions': false } only %}
+    {# Display the post user is replying to. #}
+    {% include '@BkstgNoticeBoard/Post/_show.html.twig' with { 'post': post.parent, 'production': production, 'show_actions': false } only %}
   {% endif %}
-  {% include '@BkstgNoticeBoard/Post/form.html.twig' %}
+
+  {% include '@BkstgNoticeBoard/Post/_form.html.twig' %}
 {% endblock %}

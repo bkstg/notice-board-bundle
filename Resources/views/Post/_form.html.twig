@@ -1,10 +1,9 @@
 {% trans_default_domain 'BkstgNoticeBoardBundle' %}
-{% form_theme form 'bootstrap_3_layout.html.twig' %}
-{{ form_start(form) }}
 
+{{ form_start(form) }}
   {# Editors have access to admin panel #}
   {% if is_granted('GROUP_ROLE_EDITOR', production) and post.parent is null %}
-    <p><ul class="nav nav-tabs" id="post-tabs" role="tablist">
+    <p><ul class="nav nav-pills" id="post-tabs" role="tablist">
       <li class="nav-item">
         <a class="nav-link active" id="content-tab" data-toggle="tab" href="#content" role="tab" aria-controls="content" aria-selected="true">{{ 'post.form.post'|trans }}</a>
       </li>
@@ -31,6 +30,7 @@
     </div>
   {% endif %}
   <p><div class="form-group">
-    <button type="submit" class="btn btn-primary">{{ 'post.form.submit'|trans }}</button>
+    <a href="{{ url('bkstg_board_show', {'production_slug': production.slug}) }}" class="btn btn-secondary">{{ 'cancel'|trans }}</a>
+    <button type="submit" class="btn btn-primary">{{ 'save'|trans }}</button>
   </div></p>
 {{ form_end(form) }}

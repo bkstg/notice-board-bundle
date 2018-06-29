@@ -46,3 +46,5 @@ Bkstg\NoticeBoardBundle\Entity\Post:
         children:
           targetEntity: Bkstg\NoticeBoardBundle\Entity\Post
           mappedBy: parent
+          cascade:
+            - remove

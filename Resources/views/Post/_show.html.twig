@@ -1,4 +1,5 @@
 {% trans_default_domain 'BkstgNoticeBoardBundle' %}
+
 {# We need the user for this. #}
 {% set user = get_user(post.author) %}
 
@@ -28,7 +29,7 @@
       {% endif %}
 
       <div class="post-body">
-        {{ post.body|raw }}
+        {{ post.body|purify }}
       </div>
       <div class="post-details">
         <p class="text-muted"><em>
@@ -42,14 +43,15 @@
       {# Show the actions for this post by default. #}
       {% if (show_actions is not defined) or (show_actions == true) %}
         <div class="post-actions">
-          <div class="btn-group" role="group" aria-label="Actions">
             {% if post.parent == null %}
-              <a href="{{ url('bkstg_post_create', {'production_slug': production.slug}) }}?reply-to={{ post.id }}" class="btn btn-outline-info"><i class="fa fa-commenting"></i> {{ 'post.reply'|trans }}</a>
+              <a href="{{ url('bkstg_post_create', {'production_slug': production.slug}) }}?reply-to={{ post.id }}" class="btn btn-success"><i class="fa fa-commenting"></i> {{ 'reply'|trans }}</a>
             {% endif %}
             {% if is_granted('edit', post) %}
-              <a href="{{ url('bkstg_post_update', {'id': post.id, 'production_slug': production.slug}) }}" class="btn btn-outline-dark"><i class="fa fa-pencil"></i> {{ 'post.edit'|trans }}</a>
+              <div class="btn-group" role="group" aria-label="Actions">
+                <a href="{{ url('bkstg_post_update', {'id': post.id, 'production_slug': production.slug}) }}" class="btn btn-info"><i class="fa fa-pencil"></i><span class="sr-only">{{ 'edit'|trans }}</span></a>
+                <a href="{{ url('bkstg_post_delete', {'id': post.id, 'production_slug': production.slug}) }}" class="btn btn-danger"><i class="fa fa-trash"></i><span class="sr-only">{{ 'delete'|trans }}</span></a>
+              </div>
             {% endif %}
-          </div>
         </div>
       {% endif %}
 
@@ -57,7 +59,7 @@
       {% if post.children is not empty %}
         <div class="children">
         {% for child in post.children %}
-          {% include '@BkstgNoticeBoard/Post/show.html.twig' with { 'post':child, 'production': production, 'show_actions': (show_actions is defined) ? show_actions : true } only %}
+          {% include '@BkstgNoticeBoard/Post/_show.html.twig' with { 'post':child, 'production': production, 'show_actions': (show_actions is defined) ? show_actions : true } only %}
         {% endfor %}
         </div>
       {% endif %}

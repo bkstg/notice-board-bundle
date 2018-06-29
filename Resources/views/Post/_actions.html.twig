@@ -1,0 +1,11 @@
+{% trans_default_domain 'BkstgNoticeBoardBundle' %}
+
+{% set route = app.request.attributes.get('_route') %}
+<ul class="nav nav-tabs mb-3">
+  <li class="nav-item">
+    <a class="nav-link{% if route == 'bkstg_post_update' %} active{% endif %}" href="{{ url('bkstg_post_update', { 'production_slug': production.slug, 'id': post.id }) }}">{{ 'edit'|trans }}</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link{% if route == 'bkstg_post_delete' %} active{% endif %} text-danger" href="{{ url('bkstg_post_delete', { 'production_slug': production.slug, 'id': post.id }) }}">{{ 'delete'|trans }}</a>
+  </li>
+</ul>

@@ -207,9 +207,7 @@ class PostController extends Controller
             // Set success message and redirect.
             $this->session->getFlashBag()->add(
                 'success',
-                $this->translator->trans('post.deleted', [
-                    '%post%' => $post->getName(),
-                ], BkstgNoticeBoardBundle::TRANSLATION_DOMAIN)
+                $this->translator->trans('post.deleted', [], BkstgNoticeBoardBundle::TRANSLATION_DOMAIN)
             );
             return new RedirectResponse($this->url_generator->generate(
                 'bkstg_board_show',

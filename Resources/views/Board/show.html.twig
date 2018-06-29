@@ -1,6 +1,7 @@
-{% trans_default_domain 'BkstgNoticeBoardBundle' %}
 {% extends '@BkstgCore/layout.html.twig' %}
-{% set page_title = 'Notice Board' %}
+{% trans_default_domain 'BkstgNoticeBoardBundle' %}
+{% set page_title = 'notice_board'|trans|title %}
+
 {% block content %}
   <p>
     <a class="btn btn-success" href="{{ url('bkstg_post_create', {'production_slug': production.slug}) }}">
@@ -9,7 +10,7 @@
   </p>
 
   {% for post in posts %}
-    {% include '@BkstgNoticeBoard/Post/show.html.twig' with { 'post': post, 'production': production } only %}
+    {% include '@BkstgNoticeBoard/Post/_show.html.twig' with { 'post': post, 'production': production } only %}
   {% else %}
     <p>{{ 'board.no_posts'|trans({'%create_url%': url('bkstg_post_create', {'production_slug': production.slug})})|raw }}</p>
   {% endfor %}

@@ -1,0 +1,18 @@
+{% extends '@BkstgCore/layout.html.twig' %}
+{% trans_default_domain 'BkstgNoticeBoardBundle' %}
+{% set page_title = 'post.delete_post'|trans %}
+
+{% block content %}
+  {% include '@BkstgNoticeBoard/Post/_actions.html.twig' with { 'post': post, 'production': production } only %}
+  {% include '@BkstgNoticeBoard/Post/_show.html.twig' with { 'post': post, 'production': production, 'show_actions': false } only %}
+  <p>{{ 'post.delete_confirm'|trans }}</p>
+  <p>{{ 'post.delete_consequences'|trans }}</p>
+  <p><strong>{{ 'post.delete_no_undo'|trans }}</strong></p>
+  {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <div class="form-group">
+      <a href="{{ url('bkstg_board_show', { 'production_slug': production.slug }) }}" class="btn btn-secondary">{{ 'cancel'|trans }}</a>
+      <button type="submit" class="btn btn-danger">{{ 'delete'|trans }}</button>
+    </div>
+  {{ form_end(form) }}
+{% endblock %}
