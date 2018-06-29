@@ -27,7 +27,7 @@
               </div>
             </td>
             <td>{{ get_user(post.author) }}</td>
-            <td>{% if post.active and post.expired %}{{ 'post.expired'|trans }}{% else %}{{ 'post.inactive'|trans }}{% endif %}</td>
+            <td>{{ post.published == false ? 'post.status.unpublished'|trans : post.expired ? 'post.status.expired'|trans : 'post.status.closed'|trans }}</td>
             <td>{{ post.body|striptags|truncate(50, true)|purify }}</td>
             <td>{{ post.updated|date(full_date) }}</td>
           </tr>

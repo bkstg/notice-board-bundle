@@ -33,6 +33,10 @@ post:
         status: 'Status'
         body: 'Body'
         updated: 'Updated'
+    status:
+        unpublished: 'Unpublished'
+        expired: 'Expired'
+        closed: 'Closed'
 timeline:
     posted_in: 'posted in'
 search_result:
