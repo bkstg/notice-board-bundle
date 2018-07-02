@@ -1,5 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the BkstgCoreBundle package.
+ * (c) Luke Bainbridge <http://www.lukebainbridge.ca/>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Bkstg\NoticeBoardBundle\Controller;
 
 use Bkstg\CoreBundle\Controller\Controller;
@@ -21,12 +30,14 @@ class PostController extends Controller
     /**
      * Create a new post.
      *
-     * @param  string                        $production_slug The production slug.
-     * @param  Request                       $request         The incoming request.
-     * @param  TokenStorageInterface         $token           The token storage service.
-     * @param  AuthorizationCheckerInterface $auth            The authorization checker service.
+     * @param string                        $production_slug The production slug.
+     * @param Request                       $request         The incoming request.
+     * @param TokenStorageInterface         $token           The token storage service.
+     * @param AuthorizationCheckerInterface $auth            The authorization checker service.
+     *
      * @throws NotFoundHttpException When the production is not found.
      * @throws AccessDeniedException When the user is not a member of the production.
+     *
      * @return Response
      */
     public function createAction(
@@ -70,7 +81,7 @@ class PostController extends Controller
             }
 
             // Parent must not be a child.
-            if ($parent->getParent() !== null) {
+            if (null !== $parent->getParent()) {
                 throw new AccessDeniedException();
             }
             $post->setParent($parent);
@@ -96,6 +107,7 @@ class PostController extends Controller
                 'success',
                 $this->translator->trans('post.created', [], BkstgNoticeBoardBundle::TRANSLATION_DOMAIN)
             );
+
             return new RedirectResponse($this->url_generator->generate(
                 'bkstg_board_show',
                 ['production_slug' => $production->getSlug()]
@@ -113,12 +125,14 @@ class PostController extends Controller
     /**
      * Update a post.
      *
-     * @param  string                        $production_slug The production slug.
-     * @param  integer                       $id              The id of the post.
-     * @param  Request                       $request         The incoming request.
-     * @param  TokenStorageInterface         $token           The token storage service.
-     * @param  AuthorizationCheckerInterface $auth            The authorization checker service.
+     * @param string                        $production_slug The production slug.
+     * @param int                           $id              The id of the post.
+     * @param Request                       $request         The incoming request.
+     * @param TokenStorageInterface         $token           The token storage service.
+     * @param AuthorizationCheckerInterface $auth            The authorization checker service.
+     *
      * @throws AccessDeniedException When the user is not a member of the production.
+     *
      * @return Response
      */
     public function updateAction(
@@ -140,7 +154,7 @@ class PostController extends Controller
         $user = $token->getToken()->getUser();
 
         // Create a new form for the post and handle.
-        if ($post->getParent() !== null) {
+        if (null !== $post->getParent()) {
             $form = $this->form->create(ReplyType::class, $post);
         } else {
             $form = $this->form->create(PostType::class, $post);
@@ -155,6 +169,7 @@ class PostController extends Controller
                 'success',
                 $this->translator->trans('post.updated', [], BkstgNoticeBoardBundle::TRANSLATION_DOMAIN)
             );
+
             return new RedirectResponse($this->url_generator->generate(
                 'bkstg_board_show',
                 ['production_slug' => $production->getSlug()]
@@ -172,12 +187,14 @@ class PostController extends Controller
     /**
      * Delete a post.
      *
-     * @param  string                        $production_slug The production slug.
-     * @param  integer                       $id              The id of the post.
-     * @param  Request                       $request         The incoming request.
-     * @param  TokenStorageInterface         $token           The token storage service.
-     * @param  AuthorizationCheckerInterface $auth            The authorization checker service.
+     * @param string                        $production_slug The production slug.
+     * @param int                           $id              The id of the post.
+     * @param Request                       $request         The incoming request.
+     * @param TokenStorageInterface         $token           The token storage service.
+     * @param AuthorizationCheckerInterface $auth            The authorization checker service.
+     *
      * @throws AccessDeniedException When the user is not a member of the production.
+     *
      * @return Response
      */
     public function deleteAction(
@@ -209,6 +226,7 @@ class PostController extends Controller
                 'success',
                 $this->translator->trans('post.deleted', [], BkstgNoticeBoardBundle::TRANSLATION_DOMAIN)
             );
+
             return new RedirectResponse($this->url_generator->generate(
                 'bkstg_board_show',
                 ['production_slug' => $production->getSlug()]

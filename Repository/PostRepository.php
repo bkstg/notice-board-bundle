@@ -1,9 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the BkstgCoreBundle package.
+ * (c) Luke Bainbridge <http://www.lukebainbridge.ca/>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Bkstg\NoticeBoardBundle\Repository;
 
 use Bkstg\CoreBundle\Entity\Production;
-use Bkstg\NoticeBoardBundle\Entity\Post;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
@@ -13,7 +21,8 @@ class PostRepository extends EntityRepository
     /**
      * Find all active posts.
      *
-     * @param  Production $production The production to search for.
+     * @param Production $production The production to search for.
+     *
      * @return Collection
      */
     public function findAllActive(Production $production): Collection
@@ -24,7 +33,8 @@ class PostRepository extends EntityRepository
     /**
      * Find all inactive posts.
      *
-     * @param  Production $production The production to search for.
+     * @param Production $production The production to search for.
+     *
      * @return Collection
      */
     public function findAllInactive(Production $production): Collection
@@ -35,12 +45,14 @@ class PostRepository extends EntityRepository
     /**
      * Query to find all active posts.
      *
-     * @param  Production $production The production to search for.
+     * @param Production $production The production to search for.
+     *
      * @return Query
      */
     public function getAllActiveQuery(Production $production): Query
     {
         $qb = $this->createQueryBuilder('p');
+
         return $qb
             ->join('p.groups', 'g')
 
@@ -67,12 +79,14 @@ class PostRepository extends EntityRepository
     /**
      * Query to find all inactive posts.
      *
-     * @param  Production $production The production to search for.
+     * @param Production $production The production to search for.
+     *
      * @return Query
      */
     public function getAllInactiveQuery(Production $production): Query
     {
         $qb = $this->createQueryBuilder('p');
+
         return $qb
             ->join('p.groups', 'g')
 

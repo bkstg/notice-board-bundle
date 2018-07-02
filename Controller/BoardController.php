@@ -1,5 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the BkstgCoreBundle package.
+ * (c) Luke Bainbridge <http://www.lukebainbridge.ca/>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Bkstg\NoticeBoardBundle\Controller;
 
 use Bkstg\CoreBundle\Controller\Controller;
@@ -17,12 +26,14 @@ class BoardController extends Controller
     /**
      * Show the notice board.
      *
-     * @param  string                        $production_slug The production slug.
-     * @param  AuthorizationCheckerInterface $auth            The authorization checker service.
-     * @param  PaginatorInterface            $paginator       The paginator service.
-     * @param  Request                       $request         The incoming request.
+     * @param string                        $production_slug The production slug.
+     * @param AuthorizationCheckerInterface $auth            The authorization checker service.
+     * @param PaginatorInterface            $paginator       The paginator service.
+     * @param Request                       $request         The incoming request.
+     *
      * @throws NotFoundHttpException When the production is not found.
      * @throws AccessDeniedException When the user is not a member of the production.
+     *
      * @return Response
      */
     public function showAction(
@@ -47,6 +58,7 @@ class BoardController extends Controller
 
         // Return response.
         $posts = $paginator->paginate($query, $request->query->getInt('page', 1));
+
         return new Response($this->templating->render('@BkstgNoticeBoard/Board/show.html.twig', [
             'production' => $production,
             'posts' => $posts,
@@ -56,12 +68,14 @@ class BoardController extends Controller
     /**
      * Show archive for the notice board.
      *
-     * @param  string                        $production_slug The production slug.
-     * @param  AuthorizationCheckerInterface $auth            The authorization checker service.
-     * @param  PaginatorInterface            $paginator       The paginator service.
-     * @param  Request                       $request         The incoming request.
+     * @param string                        $production_slug The production slug.
+     * @param AuthorizationCheckerInterface $auth            The authorization checker service.
+     * @param PaginatorInterface            $paginator       The paginator service.
+     * @param Request                       $request         The incoming request.
+     *
      * @throws NotFoundHttpException When the production is not found.
      * @throws AccessDeniedException When the user is not an editor of the production.
+     *
      * @return Response
      */
     public function archiveAction(
@@ -86,6 +100,7 @@ class BoardController extends Controller
 
         // Return response.
         $posts = $paginator->paginate($query, $request->query->getInt('page', 1));
+
         return new Response($this->templating->render('@BkstgNoticeBoard/Board/archive.html.twig', [
             'production' => $production,
             'posts' => $posts,

@@ -1,5 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the BkstgCoreBundle package.
+ * (c) Luke Bainbridge <http://www.lukebainbridge.ca/>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Bkstg\NoticeBoardBundle\EventSubscriber;
 
 use Bkstg\TimelineBundle\Event\NotificationEntryEvent;
@@ -17,25 +26,24 @@ class NotificationEntrySubscriber implements EventSubscriberInterface
         // Use raw notification key, we can't guarantee the bundle is available.
         return [
             'bkstg.timeline.notification_entry' => [
-                ['checkPostEntry', 0]
-            ]
+                ['checkPostEntry', 0],
+            ],
         ];
     }
 
     /**
      * Check the entry for whether or not to notify.
      *
-     * @param  NotificationEntryEvent $event The notification event.
-     * @return void
+     * @param NotificationEntryEvent $event The notification event.
      */
-    public function checkPostEntry(NotificationEntryEvent $event)
+    public function checkPostEntry(NotificationEntryEvent $event): void
     {
         // Get action and entry.
         $action = $event->getAction();
         $entry = $event->getEntry();
 
         // If this is not a post verb then skip it.
-        if ($action->getVerb() != 'post') {
+        if ('post' != $action->getVerb()) {
             return;
         }
 

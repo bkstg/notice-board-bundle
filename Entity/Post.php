@@ -1,4 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
+/*
+ * This file is part of the BkstgCoreBundle package.
+ * (c) Luke Bainbridge <http://www.lukebainbridge.ca/>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace Bkstg\NoticeBoardBundle\Entity;
 
@@ -6,8 +15,8 @@ use Bkstg\CoreBundle\Entity\Production;
 use Bkstg\CoreBundle\Model\PublishableInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use MidnightLuke\GroupSecurityBundle\Model\GroupInterface;
 use MidnightLuke\GroupSecurityBundle\Model\GroupableInterface;
+use MidnightLuke\GroupSecurityBundle\Model\GroupInterface;
 
 class Post implements GroupableInterface, PublishableInterface
 {
@@ -36,7 +45,7 @@ class Post implements GroupableInterface, PublishableInterface
     /**
      * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId(): ?int
     {
@@ -47,6 +56,7 @@ class Post implements GroupableInterface, PublishableInterface
      * Set body.
      *
      * @param string $body The body.
+     *
      * @return self
      */
     public function setBody(string $body): self
@@ -69,7 +79,8 @@ class Post implements GroupableInterface, PublishableInterface
     /**
      * Set active.
      *
-     * @param boolean $active The active state.
+     * @param bool $active The active state.
+     *
      * @return self
      */
     public function setActive(bool $active): self
@@ -82,44 +93,48 @@ class Post implements GroupableInterface, PublishableInterface
     /**
      * Get active.
      *
-     * @return boolean
+     * @return bool
      */
     public function isActive(): bool
     {
-        return ($this->active === true);
+        return true === $this->active;
     }
 
     /**
      * Set published.
      *
-     * @param boolean $published The published state.
+     * @param bool $published The published state.
+     *
      * @return self
      */
-    public function setPublished(bool $published): self
+    public function setPublished(bool $published): PublishableInterface
     {
         $this->published = $published;
+
         return $this;
     }
 
     /**
      * Get published.
      *
-     * @return boolean
+     * @return bool
      */
     public function isPublished(): bool
     {
-        return ($this->published === true);
+        return true === $this->published;
     }
 
     /**
      * Set expiry.
      *
      * @param ?\DateTimeInterface $expiry The expiry time.
+     *
      * @return self
      */
     public function setExpiry(?\DateTimeInterface $expiry): self
     {
         $this->expiry = $expiry;
+
         return $this;
     }
 
@@ -136,17 +151,18 @@ class Post implements GroupableInterface, PublishableInterface
     /**
      * Check if expired.
      *
-     * @return boolean
+     * @return bool
      */
     public function isExpired(): bool
     {
-        return ($this->expiry !== null && $this->expiry < new \DateTime('now'));
+        return null !== $this->expiry && $this->expiry < new \DateTime('now');
     }
 
     /**
      * Set created.
      *
      * @param \DateTimeInterface $created The created time.
+     *
      * @return self
      */
     public function setCreated(\DateTimeInterface $created): self
@@ -170,6 +186,7 @@ class Post implements GroupableInterface, PublishableInterface
      * Set updated.
      *
      * @param \DateTimeInterface $updated The updated time.
+     *
      * @return self
      */
     public function setUpdated(\DateTimeInterface $updated): self
@@ -193,6 +210,7 @@ class Post implements GroupableInterface, PublishableInterface
      * Set author.
      *
      * @param string $author The author to set.
+     *
      * @return self
      */
     public function setAuthor(string $author): self
@@ -216,7 +234,9 @@ class Post implements GroupableInterface, PublishableInterface
      * {@inheritdoc}
      *
      * @param GroupInterface $group The group to add.
+     *
      * @throws \Exception If the group is not a production.
+     *
      * @return self
      */
     public function addGroup(GroupInterface $group): self
@@ -233,11 +253,13 @@ class Post implements GroupableInterface, PublishableInterface
      * {@inheritdoc}
      *
      * @param GroupInterface $group The group to remove.
+     *
      * @return self
      */
     public function removeGroup(GroupInterface $group): self
     {
         $this->groups->removeElement($group);
+
         return $this;
     }
 
@@ -254,8 +276,9 @@ class Post implements GroupableInterface, PublishableInterface
     /**
      * {@inheritdoc}
      *
-     * @param  GroupInterface $group The group to check for.
-     * @return boolean
+     * @param GroupInterface $group The group to check for.
+     *
+     * @return bool
      */
     public function hasGroup(GroupInterface $group): bool
     {
@@ -265,7 +288,8 @@ class Post implements GroupableInterface, PublishableInterface
     /**
      * Set pinned.
      *
-     * @param boolean $pinned The pinned state.
+     * @param bool $pinned The pinned state.
+     *
      * @return self
      */
     public function setPinned(bool $pinned): self
@@ -278,17 +302,18 @@ class Post implements GroupableInterface, PublishableInterface
     /**
      * Get pinned.
      *
-     * @return boolean
+     * @return bool
      */
     public function getPinned(): bool
     {
-        return ($this->pinned === true);
+        return true === $this->pinned;
     }
 
     /**
      * Set parent.
      *
      * @param ?Post $parent The parent post.
+     *
      * @return self
      */
     public function setParent(?Post $parent): self
@@ -312,11 +337,13 @@ class Post implements GroupableInterface, PublishableInterface
      * Add child post.
      *
      * @param Post $child The child post to add.
+     *
      * @return self
      */
     public function addChild(Post $child): self
     {
         $this->children[] = $child;
+
         return $this;
     }
 
@@ -324,11 +351,13 @@ class Post implements GroupableInterface, PublishableInterface
      * Remove child post.
      *
      * @param Post $child The child to remove.
+     *
      * @return self
      */
     public function removeChild(Post $child): self
     {
         $this->children->removeElement($child);
+
         return $this;
     }
 
