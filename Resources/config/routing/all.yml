@@ -1,20 +1,25 @@
 bkstg_board_show:
     path: /
+    methods: [GET]
     defaults:
       _controller: Bkstg\NoticeBoardBundle\Controller\BoardController:showAction
 bkstg_board_archive:
     path: /archive
+    methods: [GET]
     defaults:
       _controller: Bkstg\NoticeBoardBundle\Controller\BoardController:archiveAction
 bkstg_post_create:
     path: /create
+    methods: [GET,POST]
     defaults:
         _controller: Bkstg\NoticeBoardBundle\Controller\PostController:createAction
 bkstg_post_update:
     path: /{id}/edit
+    methods: [GET,POST]
     defaults:
         _controller: Bkstg\NoticeBoardBundle\Controller\PostController:updateAction
 bkstg_post_delete:
     path: /{id}/delete
+    methods: [GET,POST]
     defaults:
         _controller: Bkstg\NoticeBoardBundle\Controller\PostController:deleteAction
