@@ -12,13 +12,14 @@ declare(strict_types=1);
 namespace Bkstg\NoticeBoardBundle\Entity;
 
 use Bkstg\CoreBundle\Entity\Production;
+use Bkstg\CoreBundle\Model\ExpirableInterface;
 use Bkstg\CoreBundle\Model\PublishableInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use MidnightLuke\GroupSecurityBundle\Model\GroupableInterface;
 use MidnightLuke\GroupSecurityBundle\Model\GroupInterface;
 
-class Post implements GroupableInterface, PublishableInterface
+class Post implements GroupableInterface, PublishableInterface, ExpirableInterface
 {
     private $id;
     private $body;
