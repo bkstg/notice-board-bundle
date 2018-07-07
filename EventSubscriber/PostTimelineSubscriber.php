@@ -64,14 +64,17 @@ class PostTimelineSubscriber implements EventSubscriberInterface
             // Either a new post was created or a reply was created.
             if (null === $post->getParent()) {
                 $verb = 'post';
+                $parent_component = $post_component;
             } else {
                 $verb = 'reply';
+                $parent_component = $this->action_manager->findOrCreateComponent($post->getParent());
             }
 
             // Create the action and link it.
             $action = $this->action_manager->create($author_component, $verb, [
                 'directComplement' => $post_component,
                 'indirectComplement' => $group_component,
+                'parentComplement' => $parent_component,
             ]);
             $action->setLink($this->url_generator->generate('bkstg_board_show', [
                 '_fragment' => 'post-' . $post->getId(),
