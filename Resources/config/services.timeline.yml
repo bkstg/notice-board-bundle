@@ -11,7 +11,10 @@ services:
         tags:
             - { name: spy_timeline.spread }
 
-    # Doctrine event listeners.
-    Bkstg\NoticeBoardBundle\EventListener\PostNotificationCreator:
+    # Event subscribers.
+    Bkstg\NoticeBoardBundle\EventSubscriber\NotificationEntrySubscriber:
         tags:
-            - { name: doctrine.event_listener, event: postPersist, lazy: true }
+            - { name: kernel.event_subscriber }
+    Bkstg\NoticeBoardBundle\EventSubscriber\PostTimelineSubscriber:
+        tags:
+            - { name: kernel.event_subscriber }

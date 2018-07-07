@@ -22,9 +22,9 @@ class PostGroupableSpread extends GroupableSpread
      */
     public function supports(ActionInterface $action)
     {
+        // Only supports new posts.
         $object = $action->getComponent('directComplement')->getData();
-
-        if (!$object instanceof Post) {
+        if (!$object instanceof Post || $action->getVerb() != 'post') {
             return false;
         }
 

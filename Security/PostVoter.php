@@ -56,7 +56,7 @@ class PostVoter extends GroupableEntityVoter
             return true;
         }
 
-        foreach ($event->getGroups() as $group) {
+        foreach ($post->getGroups() as $group) {
             if ($this->decision_manager->decide($token, ['GROUP_ROLE_ADMIN'], $group)) {
                 return true;
             }

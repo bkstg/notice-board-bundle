@@ -23,9 +23,8 @@ class NotificationEntrySubscriber implements EventSubscriberInterface
      */
     public static function getSubscribedEvents(): array
     {
-        // Use raw notification key, we can't guarantee the bundle is available.
         return [
-            'bkstg.timeline.notification_entry' => [
+            NotificationEntryEvent::NAME => [
                 ['checkPostEntry', 0],
             ],
         ];
@@ -42,8 +41,8 @@ class NotificationEntrySubscriber implements EventSubscriberInterface
         $action = $event->getAction();
         $entry = $event->getEntry();
 
-        // If this is not a post verb then skip it.
-        if ('post' != $action->getVerb()) {
+        // If this is not a post or reply verb then skip it.
+        if (!in_array($action->getVerb(), ['post', 'reply'])) {
             return;
         }
 

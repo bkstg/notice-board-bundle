@@ -1,23 +1,15 @@
 <?php
 
-declare(strict_types=1);
+namespace Bkstg\NoticeBoardBundle\EventSubscriber;
 
-/*
- * This file is part of the BkstgCoreBundle package.
- * (c) Luke Bainbridge <http://www.lukebainbridge.ca/>
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-namespace Bkstg\NoticeBoardBundle\EventListener;
-
+use Bkstg\CoreBundle\Event\EntityPublishedEvent;
 use Bkstg\NoticeBoardBundle\Entity\Post;
-use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Spy\Timeline\Driver\ActionManagerInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
-class PostNotificationCreator
+class PostTimelineSubscriber implements EventSubscriberInterface
 {
     private $action_manager;
     private $user_provider;
@@ -40,15 +32,19 @@ class PostNotificationCreator
         $this->url_generator = $url_generator;
     }
 
-    /**
-     * Listen to post-persist events.
-     *
-     * @param LifecycleEventArgs $args The lifecycle arguments.
-     */
-    public function postPersist(LifecycleEventArgs $args): void
+    public static function getSubscribedEvents(): array
     {
-        $post = $args->getObject();
+        return [
+            EntityPublishedEvent::NAME => [
+                ['createPostTimelineEntry', 0],
+            ]
+        ];
+    }
 
+    public function createPostTimelineEntry(EntityPublishedEvent $event): void
+    {
+        // Only act on post objects.
+        $post = $event->getObject();
         if (!$post instanceof Post) {
             return;
         }
@@ -60,24 +56,29 @@ class PostNotificationCreator
         $post_component = $this->action_manager->findOrCreateComponent($post);
         $author_component = $this->action_manager->findOrCreateComponent($author);
 
+        // Add timeline entries for each group.
         foreach ($post->getGroups() as $group) {
+            // Create the group component.
             $group_component = $this->action_manager->findOrCreateComponent($group);
 
-            $action = $this->action_manager->create(
-                $author_component,
-                'post',
-                [
-                    'directComplement' => $post_component,
-                    'indirectComplement' => $group_component,
-                ]
-            );
-            $action->setLink($this->url_generator->generate(
-                'bkstg_board_show',
-                [
-                    '_fragment' => 'post-' . $post->getId(),
-                    'production_slug' => $group->getSlug(),
-                ]
-            ));
+            // Either a new post was created or a reply was created.
+            if (null === $post->getParent()) {
+                $verb = 'post';
+            } else {
+                $verb = 'reply';
+            }
+
+            // Create the action and link it.
+            $action = $this->action_manager->create($author_component, $verb, [
+                'directComplement' => $post_component,
+                'indirectComplement' => $group_component,
+            ]);
+            $action->setLink($this->url_generator->generate('bkstg_board_show', [
+                '_fragment' => 'post-' . $post->getId(),
+                'production_slug' => $group->getSlug(),
+            ]));
+
+            // Update the action.
             $this->action_manager->updateAction($action);
         }
     }
