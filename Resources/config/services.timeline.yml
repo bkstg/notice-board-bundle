@@ -12,9 +12,6 @@ services:
             - { name: spy_timeline.spread }
 
     # Event subscribers.
-    Bkstg\NoticeBoardBundle\EventSubscriber\NotificationEntrySubscriber:
-        tags:
-            - { name: kernel.event_subscriber }
     Bkstg\NoticeBoardBundle\EventSubscriber\PostTimelineSubscriber:
         tags:
             - { name: kernel.event_subscriber }
