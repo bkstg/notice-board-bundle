@@ -39,7 +39,7 @@ post:
         closed: 'Closed'
 timeline:
     posted_in: 'posted in'
-    replied_to: 'replied to'
+    replied_to: 'replied to a post in'
 search_result:
     notice_board: 'Notice Board'
 menu_item:

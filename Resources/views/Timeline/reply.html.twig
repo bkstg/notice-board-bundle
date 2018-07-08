@@ -4,6 +4,6 @@
     <big><i class="fa fa-comment-o"></i></big>
     <strong>{{ timeline_component_render(timeline, 'subject') }}</strong>
     {{ 'timeline.replied_to'|trans }}
-    {{ timeline_component_render(timeline, 'parentComplement') }}
+    <em>{{ timeline_component_render(timeline, 'indirectComplement') }}</em>
   {% endblock %}
 {% endembed %}
