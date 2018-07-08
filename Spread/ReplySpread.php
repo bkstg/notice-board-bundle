@@ -45,11 +45,9 @@ class ReplySpread implements SpreadInterface
         $posts = array_merge([$parent], $parent->getChildren()->toArray());
         $done = [];
         foreach ($posts as $check) {
-            // Load the author, spread if they are not the new reply author and
-            // they have not been spread to yet.
+            // Load the author, spread if they have not been spread to yet.
             $author = $this->user_provider->loadUserByUsername($check->getAuthor());
             if (!$author instanceof UserInterface
-                || $author->getUsername() == $post->getAuthor()
                 || isset($done[$author->getUsername()])) {
                 continue;
             }
