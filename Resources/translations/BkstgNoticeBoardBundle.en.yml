@@ -24,19 +24,23 @@ post:
         body: 'Body'
         post: 'Post'
         pinned: 'Pinned'
-        active: 'Active'
+        status: 'Status'
+        status_choices:
+            active: 'Active'
+            unpublished: 'Unpublished'
+            archived: 'Archived'
         expiry: 'Expiry'
         admin_options: 'Admin options'
         submit: 'Submit'
     label:
         author: 'Author'
         status: 'Status'
+        status_choices:
+            unpublished: 'Unpublished'
+            expired: 'Expired'
+            archived: 'Archived'
         body: 'Body'
         updated: 'Updated'
-    status:
-        unpublished: 'Unpublished'
-        expired: 'Expired'
-        closed: 'Closed'
 timeline:
     posted_in: 'posted in'
     replied_to: 'replied to a post in'

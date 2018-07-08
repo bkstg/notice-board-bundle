@@ -15,6 +15,7 @@ use Bkstg\CoreBundle\Context\ProductionContextProviderInterface;
 use Bkstg\NoticeBoardBundle\Entity\Post;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -49,6 +50,7 @@ class PostType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $post = $options['data'];
         $builder
             ->add('body', CKEditorType::class, [
                 'required' => false,
@@ -65,11 +67,16 @@ class PostType extends AbstractType
                     'label' => 'post.form.pinned',
                 ])
                 ->add('active', ChoiceType::class, [
-                    'choices' => [
-                        'Active' => true,
-                        'Closed' => false,
-                    ],
-                    'label' => 'post.form.active',
+                    // Show "unpublished" instead of active.
+                    'choice_loader' => new CallbackChoiceLoader(function () use ($post) {
+                        yield 'post.form.status_choices.active' => true;
+                        if (!$post->isPublished()) {
+                            yield 'post.form.status_choices.unpublished' => false;
+                        } else {
+                            yield 'post.form.status_choices.archived' => false;
+                        }
+                    }),
+                    'label' => 'post.form.status',
                 ])
                 ->add('expiry', DateTimeType::class, [
                     'required' => false,
