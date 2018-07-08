@@ -9,22 +9,22 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Bkstg\NoticeBoardBundle\Spread;
+namespace Bkstg\NoticeBoardBundle\Timeline\Spread;
 
 use Bkstg\NoticeBoardBundle\Entity\Post;
-use Bkstg\TimelineBundle\Spread\GroupableSpread;
+use Bkstg\TimelineBundle\Spread\AdminSpread;
 use Spy\Timeline\Model\ActionInterface;
 
-class PostGroupableSpread extends GroupableSpread
+class PostAdminSpread extends AdminSpread
 {
     /**
      * {@inheritdoc}
      */
     public function supports(ActionInterface $action)
     {
-        // Only supports new posts.
         $object = $action->getComponent('directComplement')->getData();
-        if (!$object instanceof Post || $action->getVerb() != 'post') {
+
+        if (!$object instanceof Post) {
             return false;
         }
 

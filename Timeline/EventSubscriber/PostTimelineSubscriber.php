@@ -1,6 +1,6 @@
 <?php
 
-namespace Bkstg\NoticeBoardBundle\EventSubscriber;
+namespace Bkstg\NoticeBoardBundle\Timeline\EventSubscriber;
 
 use Bkstg\CoreBundle\Event\EntityPublishedEvent;
 use Bkstg\NoticeBoardBundle\Entity\Post;

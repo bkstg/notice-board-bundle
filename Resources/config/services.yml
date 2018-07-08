@@ -3,13 +3,9 @@ services:
         autowire: true
         autoconfigure: true
         public: false
-
-    # Bundle service.
-    Bkstg\NoticeBoardBundle\BkstgNoticeBoardBundle: ~
-
-    # Dependency injection services.
-    Bkstg\NoticeBoardBundle\DependencyInjection\:
-        resource: '../../DependencyInjection'
+    Bkstg\NoticeBoardBundle\:
+        resource: '../../*'
+        exclude: '../../{Entity,Repository,Tests,Timeline}'
 
     # Controller services.
     Bkstg\NoticeBoardBundle\Controller\:
@@ -17,20 +13,3 @@ services:
         public: true
         tags:
             - { name: controller.service_arguments }
-
-    # Form type services.
-    Bkstg\NoticeBoardBundle\Form\:
-        resource: '../../Form'
-        tags:
-            - { name: form.type }
-
-    # Event subscriber services.
-    Bkstg\NoticeBoardBundle\EventSubscriber\ProductionMenuSubscriber:
-        tags:
-            - { name: kernel.event_subscriber }
-
-    # Security voter services.
-    Bkstg\NoticeBoardBundle\Security\:
-        resource: '../../Security'
-        tags:
-            - { name: security.voter }

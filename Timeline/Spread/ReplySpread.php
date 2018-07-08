@@ -1,6 +1,6 @@
 <?php
 
-namespace Bkstg\NoticeBoardBundle\Spread;
+namespace Bkstg\NoticeBoardBundle\Timeline\Spread;
 
 use Bkstg\CoreBundle\User\UserInterface;
 use Bkstg\NoticeBoardBundle\Entity\Post;
