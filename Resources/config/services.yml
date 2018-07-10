@@ -5,7 +5,7 @@ services:
         public: false
     Bkstg\NoticeBoardBundle\:
         resource: '../../*'
-        exclude: '../../{Entity,Repository,Tests,Timeline}'
+        exclude: '../../{Entity,Repository,Tests,Search,Timeline}'
 
     # Controller services.
     Bkstg\NoticeBoardBundle\Controller\:
