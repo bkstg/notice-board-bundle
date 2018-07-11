@@ -1,6 +1,10 @@
-{% trans_default_domain 'BkstgNoticeBoardBundle' %}
-<ol class="breadcrumb">
-  <li class="breadcrumb-item"><a href="{{ url('bkstg_production_overview', {'production_slug': result.groups[0].slug}) }}">{{ result.groups[0].name }}</a></li>
-  <li class="breadcrumb-item"><a href="{{ url('bkstg_board_show', {'production_slug': result.groups[0].slug}) }}">{{ 'search_result.notice_board'|trans }}</a></li>
-</ol>
-{% include '@BkstgNoticeBoard/Post/_show.html.twig' with { 'post': result, 'production': result.groups[0], 'show_actions': false } %}
+{% embed '@BkstgSearch/Search/_search_result.html.twig' with {'link': url('bkstg_board_show', {'production_slug': result.groups[0].slug})} %}
+  {% trans_default_domain 'BkstgNoticeBoardBundle' %}
+  {% block result %}
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">{{ result.groups[0].name }}</li>
+    </ol>
+    {% include '@BkstgNoticeBoard/Post/_show.html.twig' with { 'post': result, 'production': result.groups[0], 'show_actions': false } %}
+  {% endblock %}
+{% endembed %}
+
