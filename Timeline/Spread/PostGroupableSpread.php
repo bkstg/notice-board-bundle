@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the BkstgCoreBundle package.
+ * This file is part of the BkstgNoticeBoardBundle package.
  * (c) Luke Bainbridge <http://www.lukebainbridge.ca/>
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -24,7 +24,7 @@ class PostGroupableSpread extends GroupableSpread
     {
         // Only supports new posts.
         $object = $action->getComponent('directComplement')->getData();
-        if (!$object instanceof Post || $action->getVerb() != 'post') {
+        if (!$object instanceof Post || 'post' != $action->getVerb()) {
             return false;
         }
 

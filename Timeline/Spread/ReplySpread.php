@@ -1,5 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the BkstgNoticeBoardBundle package.
+ * (c) Luke Bainbridge <http://www.lukebainbridge.ca/>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Bkstg\NoticeBoardBundle\Timeline\Spread;
 
 use Bkstg\CoreBundle\User\UserInterface;
@@ -26,7 +35,7 @@ class ReplySpread implements SpreadInterface
     {
         // Only supports new posts.
         $object = $action->getComponent('directComplement')->getData();
-        if (!$object instanceof Post || $action->getVerb() != 'reply') {
+        if (!$object instanceof Post || 'reply' != $action->getVerb()) {
             return false;
         }
 
@@ -36,7 +45,7 @@ class ReplySpread implements SpreadInterface
     /**
      * {@inheritdoc}
      */
-    public function process(ActionInterface $action, EntryCollection $collection)
+    public function process(ActionInterface $action, EntryCollection $collection): void
     {
         $post = $action->getComponent('directComplement')->getData();
         $parent = $post->getParent();
