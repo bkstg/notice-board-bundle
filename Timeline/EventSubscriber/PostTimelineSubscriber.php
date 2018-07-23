@@ -15,30 +15,25 @@ use Bkstg\CoreBundle\Event\EntityPublishedEvent;
 use Bkstg\NoticeBoardBundle\Entity\Post;
 use Spy\Timeline\Driver\ActionManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class PostTimelineSubscriber implements EventSubscriberInterface
 {
     private $action_manager;
     private $user_provider;
-    private $url_genertor;
 
     /**
      * Create a new post notification listener.
      *
      * @param ActionManagerInterface $action_manager The action manager service.
      * @param UserProviderInterface  $user_provider  The user provider service.
-     * @param UrlGeneratorInterface  $url_generator  The url generator service.
      */
     public function __construct(
         ActionManagerInterface $action_manager,
-        UserProviderInterface $user_provider,
-        UrlGeneratorInterface $url_generator
+        UserProviderInterface $user_provider
     ) {
         $this->action_manager = $action_manager;
         $this->user_provider = $user_provider;
-        $this->url_generator = $url_generator;
     }
 
     public static function getSubscribedEvents(): array
@@ -82,10 +77,6 @@ class PostTimelineSubscriber implements EventSubscriberInterface
                 'directComplement' => $post_component,
                 'indirectComplement' => $group_component,
             ]);
-            $action->setLink($this->url_generator->generate('bkstg_board_show', [
-                '_fragment' => 'post-' . $post->getId(),
-                'production_slug' => $group->getSlug(),
-            ]));
 
             // Update the action.
             $this->action_manager->updateAction($action);
