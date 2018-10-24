@@ -20,5 +20,10 @@
     },
     "autoload": {
         "psr-4": { "Bkstg\\NoticeBoardBundle\\": "" }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require-dev": {
+        "phpunit/phpunit": "^7.4"
     }
 }
