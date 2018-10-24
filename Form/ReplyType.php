@@ -24,6 +24,8 @@ class ReplyType extends AbstractType
      *
      * @param FormBuilderInterface $builder The form builder.
      * @param array                $options The form options.
+     *
+     * @return void
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -40,6 +42,8 @@ class ReplyType extends AbstractType
      * {@inheritdoc}
      *
      * @param OptionsResolver $resolver The option resolver.
+     *
+     * @return void
      */
     public function configureOptions(OptionsResolver $resolver): void
     {

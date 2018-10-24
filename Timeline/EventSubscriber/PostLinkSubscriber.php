@@ -19,11 +19,21 @@ class PostLinkSubscriber implements EventSubscriberInterface
 {
     private $url_generator;
 
+    /**
+     * Create a new post link subscriber.
+     *
+     * @param UrlGeneratorInterface $url_generator The url generator service.
+     */
     public function __construct(UrlGeneratorInterface $url_generator)
     {
         $this->url_generator = $url_generator;
     }
 
+    /**
+     * Return the events this subscriber listens for.
+     *
+     * @return array The subscribed events.
+     */
     public static function getSubscribedEvents()
     {
         return [
@@ -33,6 +43,13 @@ class PostLinkSubscriber implements EventSubscriberInterface
         ];
     }
 
+    /**
+     * Set the post link on the timeline.
+     *
+     * @param TimelineLinkEvent $event The timeline link event.
+     *
+     * @return void
+     */
     public function setPostLink(TimelineLinkEvent $event): void
     {
         $action = $event->getAction();

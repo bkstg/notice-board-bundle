@@ -16,6 +16,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class FilterCollectionSubscriber implements EventSubscriberInterface
 {
+    /**
+     * Return the events this subscriber listens for.
+     *
+     * @return array The subscribed events.
+     */
     public static function getSubscribedEvents()
     {
         return [
@@ -25,6 +30,13 @@ class FilterCollectionSubscriber implements EventSubscriberInterface
         ];
     }
 
+    /**
+     * Add the post filter to search.
+     *
+     * @param FilterCollectionEvent $event The filter collection event.
+     *
+     * @return void
+     */
     public function addPostFilter(FilterCollectionEvent $event): void
     {
         $now = new \DateTime();
@@ -33,9 +45,10 @@ class FilterCollectionSubscriber implements EventSubscriberInterface
             ->addMust($qb->query()->term(['_index' => 'post']))
             ->addMust($qb->query()->term(['active' => true]))
             ->addMust($qb->query()->terms('groups.id', $event->getGroupIds()))
-            ->addMust($qb->query()->bool()
-                ->addShould($qb->query()->range('expiry', ['gt' => $now->format('U') * 1000]))
-                ->addShould($qb->query()->bool()->addMustNot($qb->query()->exists('expiry')))
+            ->addMust(
+                $qb->query()->bool()
+                    ->addShould($qb->query()->range('expiry', ['gt' => $now->format('U') * 1000]))
+                    ->addShould($qb->query()->bool()->addMustNot($qb->query()->exists('expiry')))
             )
         ;
         $event->addFilter($query);

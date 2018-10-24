@@ -54,6 +54,8 @@ class ProductionMenuSubscriber implements EventSubscriberInterface
      * Add the notice board menu item.
      *
      * @param ProductionMenuCollectionEvent $event The menu collection event.
+     *
+     * @return void
      */
     public function addNoticeBoardItem(ProductionMenuCollectionEvent $event): void
     {

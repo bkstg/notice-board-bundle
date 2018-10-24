@@ -23,6 +23,11 @@ class ReplySpread implements SpreadInterface
 {
     private $user_provider;
 
+    /**
+     * Create a new reply spread.
+     *
+     * @param UserProviderInterface $user_provider The user provider service.
+     */
     public function __construct(UserProviderInterface $user_provider)
     {
         $this->user_provider = $user_provider;
@@ -30,6 +35,10 @@ class ReplySpread implements SpreadInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @param ActionInterface $action The action to spread.
+     *
+     * @return bool
      */
     public function supports(ActionInterface $action)
     {
@@ -44,6 +53,11 @@ class ReplySpread implements SpreadInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @param ActionInterface $action     The action to spread.
+     * @param EntryCollection $collection The current spreads.
+     *
+     * @return void
      */
     public function process(ActionInterface $action, EntryCollection $collection): void
     {

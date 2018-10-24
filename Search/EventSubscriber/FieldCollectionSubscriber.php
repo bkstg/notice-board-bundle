@@ -16,6 +16,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class FieldCollectionSubscriber implements EventSubscriberInterface
 {
+    /**
+     * Return the events this subscriber listens for.
+     *
+     * @return array The subscribed events.
+     */
     public static function getSubscribedEvents()
     {
         return [
@@ -25,6 +30,13 @@ class FieldCollectionSubscriber implements EventSubscriberInterface
         ];
     }
 
+    /**
+     * Add post fields to search.
+     *
+     * @param FieldCollectionEvent $event The menu collection event.
+     *
+     * @return void
+     */
     public function addPostFields(FieldCollectionEvent $event): void
     {
         $event->addFields([

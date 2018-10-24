@@ -19,6 +19,10 @@ class PostAdminSpread extends AdminSpread
 {
     /**
      * {@inheritdoc}
+     *
+     * @param ActionInterface $action The action to spread.
+     *
+     * @return bool
      */
     public function supports(ActionInterface $action)
     {

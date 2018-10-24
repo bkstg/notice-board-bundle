@@ -36,6 +36,11 @@ class PostTimelineSubscriber implements EventSubscriberInterface
         $this->user_provider = $user_provider;
     }
 
+    /**
+     * Return the events this subscriber listens for.
+     *
+     * @return array The subscribed events.
+     */
     public static function getSubscribedEvents(): array
     {
         return [
@@ -45,6 +50,13 @@ class PostTimelineSubscriber implements EventSubscriberInterface
         ];
     }
 
+    /**
+     * Create the timeline entry for the new post.
+     *
+     * @param EntityPublishedEvent $event The entity published event.
+     *
+     * @return void
+     */
     public function createPostTimelineEntry(EntityPublishedEvent $event): void
     {
         // Only act on post objects.
