@@ -1,0 +1,7 @@
+{
+  "license": "MIT",
+  "name": "@bkstg/notice-board-bundle",
+  "description": "",
+  "author": "Luke Bainbridge <luke@forestcitylabs.ca>",
+  "files": ["Resources/assets/**/*"]
+}
