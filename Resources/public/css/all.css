@@ -1,0 +1,20 @@
+.post {
+  padding-top: 1em;
+  padding-bottom: 1em; }
+  .post:hover {
+    background-color: #f9f9fa; }
+  .post:target {
+    background-color: #e6f2ff; }
+    .post:target:hover {
+      background-color: #e6f2ff; }
+  .post .children {
+    margin-top: 1em;
+    border-left: solid 4px #b2bac1;
+    background-color: #f9f9fa; }
+  .post.pinned {
+    background-color: #fffaed;
+    border-left: solid 4px #ffc107; }
+    .post.pinned:target {
+      background-color: #fffaed; }
+      .post.pinned:target:hover {
+        background-color: #fffaed; }
