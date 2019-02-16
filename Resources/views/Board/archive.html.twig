@@ -1,4 +1,4 @@
-{% extends '@BkstgCore/layout.html.twig' %}
+{% extends '@BkstgNoticeBoard/layout.html.twig' %}
 {% trans_default_domain 'BkstgNoticeBoardBundle' %}
 {% set page_title = 'notice_board'|trans|title %}
 
@@ -40,11 +40,4 @@
     </table>
   </div></p>
   {{ knp_pagination_render(posts) }}
-{% endblock %}
-
-{% block stylesheets %}
-  {{ parent() }}
-
-  <!-- Notice board bundle CSS -->
-  <link rel="stylesheet" href="{{ asset('bundles/bkstgnoticeboard/css/all.css') }}">
 {% endblock %}

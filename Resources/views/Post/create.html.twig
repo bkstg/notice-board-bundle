@@ -1,4 +1,4 @@
-{% extends '@BkstgCore/layout.html.twig' %}
+{% extends '@BkstgNoticeBoard/layout.html.twig' %}
 {% trans_default_domain 'BkstgNoticeBoardBundle' %}
 {% if post.parent is not empty %}
   {% set page_title = 'post.reply_to'|trans %}
@@ -13,11 +13,4 @@
   {% endif %}
 
   {% include '@BkstgNoticeBoard/Post/_form.html.twig' %}
-{% endblock %}
-
-{% block stylesheets %}
-  {{ parent() }}
-
-  <!-- Notice board bundle CSS -->
-  <link rel="stylesheet" href="{{ asset('bundles/bkstgnoticeboard/css/all.css') }}">
 {% endblock %}
