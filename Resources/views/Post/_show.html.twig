@@ -44,7 +44,7 @@
       {% if (show_actions is not defined) or (show_actions == true) %}
         <div class="post-actions">
             {% if post.parent == null %}
-              <a href="{{ url('bkstg_post_create', {'production_slug': production.slug}) }}?reply-to={{ post.id }}" class="btn btn-success"><i class="fa fa-commenting"></i> {{ 'reply'|trans }}</a>
+              <a href="{{ url('bkstg_post_create', {'production_slug': production.slug}) }}?reply-to={{ post.id }}" class="btn btn-success"><i class="fa fa-comments"></i> {{ 'reply'|trans }}</a>
             {% endif %}
             {% if is_granted('edit', post) %}
               <div class="btn-group" role="group" aria-label="Actions">
