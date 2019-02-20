@@ -48,7 +48,7 @@
             {% endif %}
             {% if is_granted('edit', post) %}
               <div class="btn-group" role="group" aria-label="Actions">
-                <a href="{{ url('bkstg_post_update', {'id': post.id, 'production_slug': production.slug}) }}" class="btn btn-info"><i class="fa fa-pencil"></i><span class="sr-only">{{ 'edit'|trans }}</span></a>
+                <a href="{{ url('bkstg_post_update', {'id': post.id, 'production_slug': production.slug}) }}" class="btn btn-info"><i class="fa fa-pencil-alt"></i><span class="sr-only">{{ 'edit'|trans }}</span></a>
                 <a href="{{ url('bkstg_post_delete', {'id': post.id, 'production_slug': production.slug}) }}" class="btn btn-danger"><i class="fa fa-trash"></i><span class="sr-only">{{ 'delete'|trans }}</span></a>
               </div>
             {% endif %}

@@ -67,7 +67,7 @@ class ProductionMenuSubscriber implements EventSubscriberInterface
             'route' => 'bkstg_board_show',
             'routeParameters' => ['production_slug' => $group->getSlug()],
             'extras' => [
-                'icon' => 'comment-o',
+                'icon' => 'comment',
                 'translation_domain' => BkstgNoticeBoardBundle::TRANSLATION_DOMAIN,
             ],
         ]);
